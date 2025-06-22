@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECAC 2.0 - Centro Virtual de Atendimento e Comunicação</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container nav">
+      <button class="nav__toggle" aria-label="Abrir menu">
+        <span class="hamburger"></span>
+      </button>
+      <a href="#" class="nav__logo">
+        <img src="assets/logo.svg" alt="ECAC" width="150" height="50">
+      </a>
+      <nav class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Sistemas</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">SIGA-RPPS</a></li>
+              <li><a href="#">COMPREV</a></li>
+              <li><a href="#">SEI</a></li>
+              <li><a href="#">CNIS</a></li>
+              <li><a href="#">LDAP</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Serviços e Protocolos</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">CRP e Certidões</a></li>
+              <li><a href="#">Consultas (Fiscalização/Atuarial)</a></li>
+              <li><a href="#">Parcelamento e Repasses</a></li>
+              <li><a href="#">Emissão de Documentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Webconferências</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Agendamento</a></li>
+              <li><a href="#">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">COMPREV</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Capacitação &amp; Treinamento</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Cursos e Tutoriais</a></li>
+              <li><a href="#">Portarias e Regulamentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Suporte</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ramais</a></li>
+              <li><a href="#">Feedback</a></li>
+              <li><a href="#">Canal de Atendimento</a></li>
+            </ul>
+          </li>
+          <li class="nav__item search-icon">
+            <a href="#">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+                <line x1="16.707" y1="16.293" x2="21" y2="20.586"
+                      stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__content container">
+      <h1>Centro Virtual de Atendimento e Comunicação do DRPPS</h1>
+      <div class="hero__actions">
+        <a href="#" class="hero-card">1ª página mais acessada</a>
+        <a href="#" class="hero-card">2ª página mais acessada</a>
+        <a href="#" class="hero-card">3ª página mais acessada</a>
+        <a href="#" class="hero-card">4ª página mais acessada</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Notícias -->
+  <section id="noticias" class="container section">
+    <div class="section-header">
+      <h2>Notícias</h2>
+      <a href="#" class="section-link">ver tudo</a>
+    </div>
+    <div class="cards noticias-cards">
+      <article class="news-card">
+        <img src="assets/noticia1.jpg" alt="Notícia 1">
+        <div class="news-info">
+          <h3>Título da notícia</h3>
+          <p><em>Conteúdo da notícia...</em></p>
+          <time datetime="2025-06-20">20/06/2025</time>
+        </div>
+      </article>
+      <article class="news-card">
+        <img src="assets/noticia2.jpg" alt="Notícia 2">
+        <div class="news-info">
+          <h3>Título da notícia</h3>
+          <p><em>Conteúdo da notícia...</em></p>
+          <time datetime="2025-06-20">20/06/2025</time>
+        </div>
+      </article>
+      <!-- Mais news-card… -->
+    </div>
+  </section>
+
+  <!-- Seção Eventos -->
+  <section id="eventos" class="container section">
+    <div class="section-header">
+      <h2>Eventos</h2>
+      <a href="#" class="section-link">ver tudo</a>
+    </div>
+    <div class="cards eventos-cards">
+      <article class="event-card">
+        <img src="assets/evento1.jpg" alt="Evento 1">
+        <div class="event-info">
+          <h3>Título</h3>
+          <p><em>Assunto do evento…</em></p>
+          <p>Quinta-Feira – 20/06/2025</p>
+          <p>Local</p>
+        </div>
+      </article>
+      <article class="event-card">
+        <img src="assets/evento2.jpg" alt="Evento 2">
+        <div class="event-info">
+          <h3>Título</h3>
+          <p><em>Assunto do evento…</em></p>
+          <p>Quinta-Feira – 20/06/2025</p>
+          <p>Local</p>
+        </div>
+      </article>
+      <!-- Mais event-card… -->
+    </div>
+  </section>
+    
+  <!-- Botão que abre o Chatbot -->
+  <div id="chatbot">
+    <img src="assets/frames/01-neutral.png" alt="Chatbot" id="chatbot-icon">
+  </div>
+
+  <!-- Janela de Chat -->
+  <div id="chat-window" class="chat-window hidden">
+    <div class="chat-header">Chat</div>
+    <div class="chat-body" id="chat-body">
+      <!-- mensagens serão inseridas aqui -->
+    </div>
+    <div class="chat-footer">
+      <input id="chat-input" type="text" placeholder="Digite sua mensagem…">
+      <button id="chat-send">
+        <img src="assets/btn-send-question.png" alt="Enviar">
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="qa.js"></script>
+  <script src="chatbot.js"></script>
+</body>
+</html>
