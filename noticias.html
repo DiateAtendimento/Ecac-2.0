@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias – ECAC 2.0</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="news-page">
+<!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container nav">
+      <button class="nav__toggle" aria-label="Abrir menu">
+        <span class="hamburger"></span>
+      </button>
+      <a href="#" class="nav__logo">
+        <img src="assets/logo.svg" alt="ECAC" width="150" height="50">
+      </a>
+      <nav class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Sistemas</a>
+            <ul class="dropdown-menu">
+              <li><a href="cadprev_home.html">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">SIGA-RPPS</a></li>
+              <li><a href="#">COMPREV</a></li>
+              <li><a href="#">SEI</a></li>
+              <li><a href="#">CNIS</a></li>
+              <li><a href="#">LDAP</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Serviços e Protocolos</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">CRP e Certidões</a></li>
+              <li><a href="#">Consultas (Fiscalização/Atuarial)</a></li>
+              <li><a href="#">Parcelamento e Repasses</a></li>
+              <li><a href="#">Emissão de Documentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Webconferências</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Agendamento</a></li>
+              <li><a href="#">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">COMPREV</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Capacitação &amp; Treinamento</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Cursos e Tutoriais</a></li>
+              <li><a href="#">Portarias e Regulamentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Suporte</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ramais</a></li>
+              <li><a href="#">Feedback</a></li>
+              <li><a href="#">Canal de Atendimento</a></li>
+            </ul>
+          </li>
+          <li class="nav__item search-icon">
+            <a href="#">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+                <line x1="16.707" y1="16.293" x2="21" y2="20.586"
+                      stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Seção Destaque: 3 últimas notícias -->
+    <section class="container section news-featured">
+      <!-- Card 1: maior destaque -->
+      <article class="news-card highlight">
+        <img src="/noticias/noticias_img/noticia5.svg" alt="Destaque Notícia 3">
+        <div class="news-info">
+          <h1>Inovando o Centro Virtual de Atendimento e Comunicação do DRPPS</h1>
+          <time datetime="2025-06-27">27/06/2025</time>
+          <p>Conheça as novas funcionalidades que reúnem todos os serviços do DRPPS num só portal.</p>
+          <a href="noticia3.html" class="section-link" target="_blank">Leia mais</a>
+        </div>
+      </article>
+      <!-- Card 2: secundário superior -->
+      <article class="news-card">
+        <img src="/noticias/noticias_img/noticia4.svg" alt="Notícia 2">
+        <div class="news-info">
+          <h3>Atuária Descomplicada no DRPPS</h3>
+          <time datetime="2025-05-30">30/05/2025</time>
+        </div>
+      </article>
+      <!-- Card 3: secundário inferior -->
+      <article class="news-card">
+        <img src="/noticias/noticias_img/noticia3.svg" alt="Notícia 1">
+        <div class="news-info">
+          <h3>A certificação que valida competências estratégicas para líderes e gestores</h3>
+          <time datetime="2025-05-19">19/05/2025</time>
+        </div>
+      </article>
+    </section>
+
+    <!-- Seção Outras Notícias (a partir da 4ª) -->
+    <section class="container section news-list">
+      <div class="section-header">
+        <h2>Outras Notícias</h2>
+      </div>
+      <div class="cards noticias-cards">
+        <article class="news-card">
+          <img src="/noticias/noticias_img/noticia2.svg" alt="Notícia 4">
+          <div class="news-info">
+            <h3>Título da Notícia 2</h3>
+            <time datetime="2025-06-21">21/06/2025</time>
+          </div>
+        </article>
+        <article class="news-card">
+          <img src="/noticias/noticias_img/noticia1.svg" alt="Notícia 5">
+          <div class="news-info">
+            <h3>Título da Notícia 1</h3>
+            <time datetime="2025-06-20">20/06/2025</time>
+          </div>
+        </article>
+        <!-- demais cards antigos -->
+      </div>
+    </section>
+  </main>
+
+   <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <!-- Sobre -->
+      <div class="footer__col">
+        <h3>ECAC</h3>
+        <p>Centro Virtual de Atendimento e Comunicação do DRPPS. Aqui você encontra todos os sistemas e serviços em um só lugar.</p>
+      </div>
+      <!-- Links Rápidos -->
+      <div class="footer__col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#">CADPREV</a></li>
+          <li><a href="#">GESCON</a></li>
+          <li><a href="#">COMPREV</a></li>
+          <li><a href="#">SIGA-RPPS</a></li>
+        </ul>
+      </div>
+      <!-- Contato -->
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <p>Email: <a href="mailto:atendimento.rpps@previdencia.gov.br">atendimento.rpps@previdencia.gov.br</a></p>
+        <p>Tel: (61) 2021-5555</p>
+      </div>
+      <!-- Redes Sociais -->
+      <div class="footer__col footer__social">
+        <h4>Siga-nos</h4>
+        <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+        <a href="#" aria-label="Twitter"><img src="assets/icons/twitter.svg" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt=""></a>
+        <a href="#" aria-label="instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <small>© 2025 DRPPS — Todos os direitos reservados.</small>
+    </div>
+  </footer>
+</body>
+</html>

@@ -21,7 +21,7 @@
           <li class="nav__item dropdown">
             <a href="#" class="nav__link">Sistemas</a>
             <ul class="dropdown-menu">
-              <li><a href="#">CADPREV</a></li>
+              <li><a href="cadprev_home.html">CADPREV</a></li>
               <li><a href="#">GESCON</a></li>
               <li><a href="#">SIGA-RPPS</a></li>
               <li><a href="#">COMPREV</a></li>
@@ -82,12 +82,49 @@
   <section class="hero">
     <div class="hero__content container">
       <h1>Centro Virtual de Atendimento e Comunicação do DRPPS</h1>
+    
       <div class="hero__actions">
         <a href="#" class="hero-card">1ª página mais acessada</a>
         <a href="#" class="hero-card">2ª página mais acessada</a>
         <a href="#" class="hero-card">3ª página mais acessada</a>
         <a href="#" class="hero-card">4ª página mais acessada</a>
       </div>
+      <img src="assets/log-mps.svg">
+    </div>
+    
+  </section>
+
+    <!-- Seção Sistemas -->
+  <section id="sistemas" class="container section sistemas-section">
+    <div class="section-header">
+      <h2>Sistemas</h2>
+      <!--<a href="#" class="section-link">ver tudo</a>-->
+    </div>
+    <div class="cards sistemas-cards">
+      <a href="#" class="sistema-card" target="_blank">
+        <img src="assets/card-gescon.svg" alt="GESCON">
+        <div class="sistema-info"><h3>GESCON</h3></div>
+      </a>
+      <a href="cadprev_home.html" class="sistema-card" target="_blank">
+        <img src="assets/card-cadprev.svg" alt="CADPREV">
+        <div class="sistema-info"><h3>CADPREV</h3></div>
+      </a>
+      <a href="#" class="sistema-card" target="_blank">
+        <img src="assets/card-comprev.svg" alt="COMPREV">
+        <div class="sistema-info"><h3>COMPREV</h3></div>
+      </a>
+      <a href="#" class="sistema-card" target="_blank">
+        <img src="assets/card-bgcomprev.svg" alt="BG-COMPREV">
+        <div class="sistema-info"><h3>CNIS</h3></div>
+      </a>
+      <a href="#" class="sistema-card" target="_blank">
+        <img src="assets/card-siga-rpps.svg" alt="SIGA-RPPS">
+        <div class="sistema-info"><h3>SIGA-RPPS</h3></div>
+      </a>
+      <a href="#" class="sistema-card" target="_blank">
+        <img src="assets/card-sei.svg" alt="SEI" >
+        <div class="sistema-info"><h3>SEI</h3></div>
+      </a>
     </div>
   </section>
 
@@ -95,26 +132,11 @@
   <section id="noticias" class="container section">
     <div class="section-header">
       <h2>Notícias</h2>
-      <a href="#" class="section-link">ver tudo</a>
+      <a href="/noticias.html" class="section-link" target="_blank">ver tudo</a>
     </div>
+
     <div class="cards noticias-cards">
-      <article class="news-card">
-        <img src="assets/noticia1.jpg" alt="Notícia 1">
-        <div class="news-info">
-          <h3>Título da notícia</h3>
-          <p><em>Conteúdo da notícia...</em></p>
-          <time datetime="2025-06-20">20/06/2025</time>
-        </div>
-      </article>
-      <article class="news-card">
-        <img src="assets/noticia2.jpg" alt="Notícia 2">
-        <div class="news-info">
-          <h3>Título da notícia</h3>
-          <p><em>Conteúdo da notícia...</em></p>
-          <time datetime="2025-06-20">20/06/2025</time>
-        </div>
-      </article>
-      <!-- Mais news-card… -->
+      <!-- Os 3 cards mais recentes serão gerados pelo script.js -->
     </div>
   </section>
 
@@ -122,34 +144,18 @@
   <section id="eventos" class="container section">
     <div class="section-header">
       <h2>Eventos</h2>
-      <a href="#" class="section-link">ver tudo</a>
+      <a href="/eventos.html" class="section-link" target="_blank">ver tudo</a>
     </div>
+
     <div class="cards eventos-cards">
-      <article class="event-card">
-        <img src="assets/evento1.jpg" alt="Evento 1">
-        <div class="event-info">
-          <h3>Título</h3>
-          <p><em>Assunto do evento…</em></p>
-          <p>Quinta-Feira – 20/06/2025</p>
-          <p>Local</p>
-        </div>
-      </article>
-      <article class="event-card">
-        <img src="assets/evento2.jpg" alt="Evento 2">
-        <div class="event-info">
-          <h3>Título</h3>
-          <p><em>Assunto do evento…</em></p>
-          <p>Quinta-Feira – 20/06/2025</p>
-          <p>Local</p>
-        </div>
-      </article>
-      <!-- Mais event-card… -->
+      <!-- Os 3 cards mais recentes serão gerados pelo script.js -->
     </div>
   </section>
+
     
   <!-- Botão que abre o Chatbot -->
   <div id="chatbot">
-    <img src="assets/frames/01-neutral.png" alt="Chatbot" id="chatbot-icon">
+    <img src="assets/frames/01-neutral.svg" alt="Chatbot" id="chatbot-icon">
   </div>
 
   <!-- Janela de Chat -->
@@ -161,10 +167,48 @@
     <div class="chat-footer">
       <input id="chat-input" type="text" placeholder="Digite sua mensagem…">
       <button id="chat-send">
-        <img src="assets/btn-send-question.png" alt="Enviar">
+        <img src="assets/btn-send-question.svg" alt="Enviar">
       </button>
     </div>
   </div>
+
+    <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <!-- Sobre -->
+      <div class="footer__col">
+        <h3>ECAC</h3>
+        <p>Centro Virtual de Atendimento e Comunicação do DRPPS. Aqui você encontra todos os sistemas e serviços em um só lugar.</p>
+      </div>
+      <!-- Links Rápidos -->
+      <div class="footer__col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#">CADPREV</a></li>
+          <li><a href="#">GESCON</a></li>
+          <li><a href="#">COMPREV</a></li>
+          <li><a href="#">SIGA-RPPS</a></li>
+        </ul>
+      </div>
+      <!-- Contato -->
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <p>Email: <a href="mailto:atendimento.rpps@previdencia.gov.br">atendimento.rpps@previdencia.gov.br</a></p>
+        <p>Tel: (61) 2021-5555</p>
+      </div>
+      <!-- Redes Sociais -->
+      <div class="footer__col footer__social">
+        <h4>Siga-nos</h4>
+        <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+        <a href="#" aria-label="Twitter"><img src="assets/icons/twitter.svg" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt=""></a>
+        <a href="#" aria-label="instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <small>© 2025 DRPPS — Todos os direitos reservados.</small>
+    </div>
+  </footer>
 
   <!-- Scripts -->
   <script src="script.js"></script>

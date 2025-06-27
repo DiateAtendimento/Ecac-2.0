@@ -1,5 +1,3 @@
-/* ===== style.css ===== */
-
 /* ----- RESET & BASE ----- */
 * {
   margin: 0;
@@ -48,6 +46,7 @@ html, body {
   padding: 0.75rem 0;
 }
 .nav__logo img {
+  margin-top: 0.3rem;
   width: 150px;
   height: 50px;
 }
@@ -130,7 +129,7 @@ html, body {
   height: 100vh;
   padding-top: 10rem;
   background: var(--overlay)
-    url('assets/hero-bg-desktop.jpg') top center/cover no-repeat;
+    url('assets/hero-bg-desktop.svg') top center/cover no-repeat;
   display: flex;
   align-items: flex-start;
 }
@@ -142,12 +141,116 @@ html, body {
   grid-template-columns: 1.4fr 1fr;
   column-gap: 3rem;
 }
+
+
 .hero__content > h1 {
-  font-size: 5rem;
+  font-size: 4rem;
   line-height: 1.2;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   align-self: end;
 }
+
+/* 1) Grid de 2 colunas: texto à esquerda, slider à direita */
+.name-hero .hero__content {
+  position: relative;
+
+}
+
+.name-hero .hero__text {
+  position: absolute;
+  top: 2rem;    /* ajuste para onde quer que o H1 fique */
+  left: 1rem;   /* idem */
+  z-index: 10;  /* acima do slider e do background */
+  margin-top: 0.9px;
+}
+.name-hero .hero__text h1 {
+  font-size: 100px;
+  margin-top: 5.5rem;            /* só o H1, se preferir */
+}
+.name-hero .hero__text .hero__logo {
+  margin-top: 189px;            /* só a logo, se quiser reduzir o espaço */
+  padding-right: 1px;
+  
+}
+
+
+/* 2) Container do slider com perspectiva 3D */
+.slider3d-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;    /* ajuste à largura desejada */
+  height: 300px;       /* ajuste à altura do seu card */
+  perspective: 2000px;
+  margin-top: 5rem;
+  margin-left: 50rem;   /* empurra para direita */
+  overflow: visible;
+}
+
+/* 3) “Anel” 3D que vai girar */
+.carousel3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+}
+
+/* 4) Cada slide posicionado em volta do eixo Y */
+.slide3d {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300px;    /* largura do seu card */
+  height: 350px;   /* altura do seu card */
+  margin: -175px 0 0 -125px;
+  backface-visibility: hidden;
+}
+.slide3d img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* 5) Distribui os slides num círculo: */
+.slider3d-container .slide3d:nth-child(1) { transform: rotateY(  0deg) translateZ(250px); }
+.slider3d-container .slide3d:nth-child(2) { transform: rotateY( 72deg) translateZ(250px); }
+.slider3d-container .slide3d:nth-child(3) { transform: rotateY(144deg) translateZ(250px); }
+.slider3d-container .slide3d:nth-child(4) { transform: rotateY(216deg) translateZ(250px); }
+.slider3d-container .slide3d:nth-child(5) { transform: rotateY(288deg) translateZ(250px); }
+
+
+
+/* 6) Botões de navegação */
+.slider3d-container .nav {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.8);
+  border: none;
+  font-size: 1.5rem;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  
+}
+
+.slider3d-container .prev { left: -7rem; }
+.slider3d-container .next { right: -6rem; }
+
+
+
+/* espaçamento e alinhamento da logo */
+.name-hero .hero__logo {
+  margin-top: 8.8rem;      /* afasta do h1 */
+  height: auto;
+  justify-self: start;   /* alinha à esquerda */
+}
+
+
 .hero__actions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -171,9 +274,64 @@ html, body {
   transform: translateY(-4px);
 }
 
+/* ===== Seção Sistemas ===== */
+.sistemas-section {
+  margin: 2rem 0rem;
+  padding-left: 4rem;
+ 
+}
+.sistemas-section .section-header {
+  margin-bottom: 1.5rem;
+}
+.sistemas-cards {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.sistema-card {
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s;
+}
+.sistema-card:hover {
+  transform: translateY(-4px);
+}
+.sistema-card img {
+  width: 100%;
+  object-fit: contain;
+  background: var(--light);
+ 
+}
+.sistema-info {
+  padding: 1rem;
+  text-align: center;
+}
+.sistema-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+
+/*PÁGINA DE NOTICIAS*/
+
+
+body.news-page .container.nav .nav__link {
+  color: #000;
+}
+
+
+
 /* ===== SECTIONS: NOTÍCIAS & EVENTOS ===== */
 .section {
-  margin: 2rem 0;
+  margin: 2rem 0 4rem;
   padding-left: 4rem;
 }
 .section-header {
@@ -191,30 +349,36 @@ html, body {
   text-decoration: none;
   font-weight: 500;
 }
-.cards {
+
+/* grid unificado para notícias e eventos */
+.noticias-cards,
+.eventos-cards {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
-.noticias-cards {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-.eventos-cards {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
+
+/* cards unificados */
 .news-card,
 .event-card {
   display: flex;
+  align-items: center;
   background: #f5f5f5;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* imagem ocupa metade do card, sem cortes */
 .news-card img,
 .event-card img {
   width: 50%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
+
+/* texto ocupa a outra metade e fica centralizado verticalmente */
 .news-info,
 .event-info {
   width: 50%;
@@ -223,6 +387,8 @@ html, body {
   flex-direction: column;
   justify-content: center;
 }
+
+/* tipografia */
 .news-info h3,
 .event-info h3 {
   margin-bottom: 0.5rem;
@@ -233,13 +399,11 @@ html, body {
   margin-bottom: 0.5rem;
   color: #333;
 }
-.news-info time {
+.news-info time,
+.event-info p {
   font-size: 0.9rem;
   color: #666;
-}
-.event-info p {
   margin: 0.25rem 0;
-  color: #333;
 }
 
 /* ===== CHATBOT & MESSAGES ===== */
@@ -346,7 +510,8 @@ html, body {
 }
 #chat-send img {
   width: 50px;
-  height: 50px;
+  height: 80px;
+ padding-top: 20px;
 }
 
 /* ===== BOTÃO COPIAR ===== */
@@ -362,6 +527,7 @@ html, body {
   align-self: center;
 }
 
+
 /* ===== LINKS CLICÁVEIS ===== */
 
 .msg .text a {
@@ -375,10 +541,210 @@ html, body {
   text-decoration: underline;
 }
 
+/* ===========================================
+   1) Seção Destaque com as 3 últimas notícias
+   =========================================== */
+.news-featured {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, auto);
+  gap: 1.5rem;
+  margin: 9rem 1rem 1rem 1rem;
+}
+
+/* Card grande (mais recente) */
+.news-featured .news-card.highlight {
+  grid-column: 1 / 2;
+  grid-row: 1 / span 2;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.news-featured .news-card.highlight img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Sobreposição de gradiente + texto embaixo */
+.news-featured .news-card.highlight .news-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+}
+.news-featured .news-card.highlight .news-info h1 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+}
+.news-featured .news-card.highlight .news-info time,
+.news-featured .news-card.highlight .news-info p {
+  opacity: 0.8;
+  font-size: .9rem;
+}
+
+/* Cards menores à direita */
+.news-featured .news-card:nth-child(2),
+.news-featured .news-card:nth-child(3) {
+  background: #000;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.news-featured .news-card:nth-child(2) {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+.news-featured .news-card:nth-child(3) {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+.news-featured .news-card:nth-child(2) img,
+.news-featured .news-card:nth-child(3) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.news-featured .news-card:nth-child(2) .news-info,
+.news-featured .news-card:nth-child(3) .news-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+}
+.news-featured .news-card:nth-child(2) .news-info h3,
+.news-featured .news-card:nth-child(3) .news-info h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+.news-featured .news-card:nth-child(2) .news-info time,
+.news-featured .news-card:nth-child(3) .news-info time {
+  font-size: .8rem;
+  opacity: 0.8;
+}
+
+/* ===========================================
+   2) Seção “Outras Notícias” (restantes)
+   =========================================== */
+.news-list {
+  margin: 4rem 0;
+}
+.news-list .section-header h2 {
+  margin-bottom: 1.5rem;
+}
+.news-list .noticias-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.news-list .news-card {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.news-list .news-card img {
+  width: 40%;
+  height: auto;
+  object-fit: cover;
+}
+.news-list .news-info {
+  width: 60%;
+  padding: 1.25rem;
+}
+.news-list .news-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+  color: #333;
+}
+.news-list .news-info time {
+  font-size: .85rem;
+  color: #666;
+}
+
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: #111; /* tom escuro para contraste com o body claro */
+  color: var(--light);
+  padding: 3rem 1rem 1.5rem;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer__col h3,
+.footer__col h4 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.footer__col p,
+.footer__col ul,
+.footer__col a {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.8);
+}
+
+.footer__col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer__col ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer__col ul li a:hover {
+  color: var(--primary);
+}
+
+.footer__col a {
+  text-decoration: none;
+}
+
+.footer__social a {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+
+.footer__social img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s;
+}
+
+.footer__social img:hover {
+  filter: brightness(0) invert(0.7);
+}
+
+.site-footer__bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 1rem;
+}
+
+.site-footer__bottom small {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+
+
 /* ===== RESPONSIVE BREAKPOINTS ===== */
 @media (max-width: 1024px) {
   .hero {
-    background-image: url('assets/hero-bg-tablet.jpg');
+    background-image: url('assets/hero-bg-tablet.svg');
   }
   .hero__content > h1 {
     font-size: 3rem;
@@ -422,13 +788,13 @@ html, body {
     padding: 0.5rem 0;
   }
   .hero {
-    background-image: url('assets/hero-bg-tablet-mobile-grande.jpg');
+    background-image: url('assets/hero-bg-tablet-mobile-grande.svg');
     padding-top: 4rem;
   }
 }
 @media (max-width: 480px) {
   .hero {
-    background-image: url('assets/hero-bg-tablet-mobile-pequeno.jpg');
+    background-image: url('assets/hero-bg-tablet-mobile-pequeno.svg');
     padding-top: 2rem;
   }
   .hero__content > h1 {
@@ -436,5 +802,16 @@ html, body {
   }
   .hero__actions {
     grid-template-columns: 1fr;
+  }
+    .sistemas-section {
+    padding-left: 1rem;
+    text-align: center;
+  }
+    .footer__grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer__social {
+    margin-top: 1rem;
   }
 }

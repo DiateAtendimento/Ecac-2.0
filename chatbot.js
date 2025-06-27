@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const frames = {
-    neutral:  'assets/frames/01-neutral.png',
-    waiting:  'assets/frames/02-waiting.png',
-    thinking: 'assets/frames/03-thinking.png',
-    answer:   'assets/frames/04-answer.png',
+    neutral:  'assets/frames/01-neutral.svg',
+    waiting:  'assets/frames/02-waiting.svg',
+    thinking: 'assets/frames/03-thinking.svg',
+    answer:   'assets/frames/04-answer.svg',
   };
 
   let ratingTimeout;   // timer para avaliação
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatar = document.createElement('img');
     avatar.className = 'avatar';
     avatar.src = sender === 'user'
-      ? 'assets/icon-user-conversation.png'
-      : 'assets/icon-chatbot-conversation.png';
+      ? 'assets/icon-user-conversation.svg'
+      : 'assets/icon-chatbot-conversation.svg';
     avatar.alt = sender === 'user' ? 'Você' : 'Bot';
 
     const textEl = document.createElement('div');
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatar = document.createElement('img');
     avatar.className = 'avatar';
     avatar.src = sender === 'user'
-      ? 'assets/icon-user-conversation.png'
-      : 'assets/icon-chatbot-conversation.png';
+      ? 'assets/icon-user-conversation.svg'
+      : 'assets/icon-chatbot-conversation.svg';
     avatar.alt = sender === 'user' ? 'Você' : 'Bot';
 
     const textEl = document.createElement('div');
