@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECAC 2.0 - CADPREV</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container nav">
+      <button class="nav__toggle" aria-label="Abrir menu">
+        <span class="hamburger"></span>
+      </button>
+      <a href="index.html" class="nav__logo">
+        <img src="/assets/imagens/logo.svg" alt="ECAC" width="150" height="50">
+      </a>
+      <nav class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Sistemas</a>
+            <ul class="dropdown-menu">
+              <li><a href="cadprev_home.html">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">SIGA-RPPS</a></li>
+              <li><a href="#">COMPREV</a></li>
+              <li><a href="#">SEI</a></li>
+              <li><a href="#">CNIS</a></li>
+              <li><a href="#">LDAP</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Serviços e Protocolos</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">CRP e Certidões</a></li>
+              <li><a href="#">Consultas (Fiscalização/Atuarial)</a></li>
+              <li><a href="#">Parcelamento e Repasses</a></li>
+              <li><a href="#">Emissão de Documentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Webconferências</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Agendamento</a></li>
+              <li><a href="#">CADPREV</a></li>
+              <li><a href="#">GESCON</a></li>
+              <li><a href="#">COMPREV</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Capacitação &amp; Treinamento</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Cursos e Tutoriais</a></li>
+              <li><a href="#">Portarias e Regulamentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Suporte</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ramais</a></li>
+              <li><a href="#">Feedback</a></li>
+              <li><a href="#">Canal de Atendimento</a></li>
+            </ul>
+          </li>
+          <li class="nav__item search-icon">
+            <a href="#">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+                <line x1="16.707" y1="16.293" x2="21" y2="20.586"
+                      stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero name-hero">
+    <div class="hero__content container">
+      <div class="hero__text">
+        <h1>CADPREV</h1>
+        <img src="assets/imagens/log-mps.svg" alt="Logo MPS" class="hero__logo">
+      </div>
+
+      <!-- coluna da direita: slider 3D -->
+      <div class="slider3d-container">
+        <div class="carousel3d">
+          <div class="slide3d"><img src="assets/imagens/slide1.svg" alt=""></div>
+          <div class="slide3d"><img src="assets/imagens/slide2.svg" alt=""></div>
+          <div class="slide3d"><img src="assets/imagens/slide3.svg" alt=""></div>
+          <div class="slide3d"><img src="assets/imagens/slide4.svg" alt=""></div>
+          <div class="slide3d"><img src="assets/imagens/slide5.svg" alt=""></div>
+        </div>
+        <button class="nav prev">&lt;</button>
+        <button class="nav next">&gt;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção cadastros -->
+
+
+    
+  <!-- Botão que abre o Chatbot -->
+  <div id="chatbot">
+    <img src="assets/frames/01-neutral.svg" alt="Chatbot" id="chatbot-icon">
+  </div>
+
+  <!-- Janela de Chat -->
+  <div id="chat-window" class="chat-window hidden">
+    <div class="chat-header">Chat</div>
+    <div class="chat-body" id="chat-body">
+      <!-- mensagens serão inseridas aqui -->
+    </div>
+    <div class="chat-footer">
+      <input id="chat-input" type="text" placeholder="Digite sua mensagem…">
+      <button id="chat-send">
+        <img src="assets/imagens/btn-send-question.svg" alt="Enviar">
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <!-- Sobre -->
+      <div class="footer__col">
+        <h3>ECAC</h3>
+        <p>Centro Virtual de Atendimento e Comunicação do DRPPS. Aqui você encontra todos os sistemas e serviços em um só lugar.</p>
+      </div>
+      <!-- Links Rápidos -->
+      <div class="footer__col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#">CADPREV</a></li>
+          <li><a href="#">GESCON</a></li>
+          <li><a href="#">COMPREV</a></li>
+          <li><a href="#">SIGA-RPPS</a></li>
+        </ul>
+      </div>
+      <!-- Contato -->
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <p>Email: <a href="mailto:atendimento.rpps@previdencia.gov.br">atendimento.rpps@previdencia.gov.br</a></p>
+        <p>Tel: (61) 2021-5555</p>
+      </div>
+      <!-- Redes Sociais -->
+      <div class="footer__col footer__social">
+        <h4>Siga-nos</h4>
+        <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+        <a href="#" aria-label="Twitter"><img src="assets/icons/twitter.svg" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt=""></a>
+        <a href="#" aria-label="instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <small>© 2025 DRPPS — Todos os direitos reservados.</small>
+    </div>
+  </footer>
+
+
+
+  <!-- Scripts -->
+
+  <script>
+    const carousel = document.querySelector('.carousel3d');
+    const slides   = document.querySelectorAll('.slide3d');
+    const total    = slides.length;
+    let angle = 0;
+    const angleIncrement = 360 / total;
+    let autoRotateInterval;
+
+    // Função que gira para o próximo slide
+    function rotateCarousel(delta) {
+      angle += delta * angleIncrement;
+      carousel.style.transform = `rotateY(${angle}deg)`;
+    }
+
+    // Avança manual
+    document.querySelector('.slider3d-container .next').addEventListener('click', () => {
+      rotateCarousel(-1);
+      resetAutoRotate();
+    });
+
+    // Volta manual
+    document.querySelector('.slider3d-container .prev').addEventListener('click', () => {
+      rotateCarousel(+1);
+      resetAutoRotate();
+    });
+
+    // Auto-rotação
+    function startAutoRotate() {
+      autoRotateInterval = setInterval(() => {
+        rotateCarousel(-1);
+      }, 3000); // gira a cada 3 segundos (ajuste se quiser)
+    }
+
+    // Reinicia o timer de auto-rotação após clique manual
+    function resetAutoRotate() {
+      clearInterval(autoRotateInterval);
+      startAutoRotate();
+    }
+
+    // Inicia tudo
+    startAutoRotate();
+
+  </script>
+
+
+
+  <script src="js/script.js"></script>
+  <script src="js/qa.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
