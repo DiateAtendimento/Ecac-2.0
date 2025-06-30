@@ -27,7 +27,7 @@ const originalIntents = [
       /^(oi|olá)[.!]?$/i,
       /^(bom dia|boa tarde|boa noite)[.!]?$/i
     ],
-    responses: [
+    responses: [ 
       'Olá! Como posso ajudar você hoje?',
       'Oi! Em que posso ser útil?',
       'Olá, em que posso ajudar?'
@@ -1014,17 +1014,10 @@ const originalIntents = [
  * 3) adiciona padrão de contexto processual
  */
 const intents = originalIntents.map(({ name, threshold, patterns, responses }) => {
-  const newThreshold = threshold === 1 ? 2 : threshold === 2 ? 3 : threshold;
-
-  const refined = patterns.map(pat => {
-    const tokens = pat.source.match(/\w+/g) || [];
-    const source = tokens.map(tok => `(?<!nao\\s)\\b${tok}\\b`).join('|');
-    return new RegExp(source, 'i');
-  });
-
-  refined.push(/\bprocessual\b/i);
-
-  return { name, threshold: newThreshold, patterns: refined, responses };
+  const refined = patterns.map(pat =>
+    new RegExp(`(?<!nao\\s)${pat.source}`, pat.flags)
+  );
+  return { name, threshold, patterns: refined, responses };
 });
 
 /**
@@ -1036,6 +1029,7 @@ const fallbackResponses = [
   'Não tenho certeza do que quis dizer. Pode tentar novamente?'
 ];
 
+
 /**
  * Função principal: recebe o texto do usuário e retorna uma resposta
  * com base nos padrões refinados e thresholds.
@@ -1043,31 +1037,39 @@ const fallbackResponses = [
 function getResponse(text) {
   const norm = normalize(text);
 
-  // calcula score por intent testando cada regex refinado
-  const matches = intents
-    .map(intent => {
-      const score = intent.patterns.reduce(
-        (acc, pat) => acc + (pat.test(norm) ? 1 : 0),
-        0
-      );
-      return { intent, score };
-    })
-    .filter(x => x.score >= x.intent.threshold);
+  // === DEBUG ===
+  console.groupCollapsed(`getResponse('${text}') → normalized: '${norm}'`);
+  // ==============
 
+  // calcula score por intent testando cada regex refinado
+  const scored = intents.map(({ name, threshold, patterns, responses }) => {
+    const score = patterns.reduce(
+      (acc, pat) => acc + (pat.test(norm) ? 1 : 0),
+      0
+    );
+    console.log(`  [${name}] score = ${score} (threshold ${threshold})`);
+    return { name, threshold, responses, score };
+  });
+
+  // filtra apenas as que passaram do threshold
+  const matches = scored.filter(x => x.score >= x.threshold);
+
+  let reply;
   if (matches.length > 0) {
-    // pega a(s) de maior score
+    // pega as de maior score
     matches.sort((a, b) => b.score - a.score);
     const topScore = matches[0].score;
-    const topIntents = matches.filter(m => m.score === topScore).map(m => m.intent);
+    const topIntents = matches.filter(m => m.score === topScore);
     const chosen = topIntents[Math.floor(Math.random() * topIntents.length)];
-    const resps = chosen.responses;
-    return resps[Math.floor(Math.random() * resps.length)];
+    reply = chosen.responses[Math.floor(Math.random() * chosen.responses.length)];
+  } else {
+    reply = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
   }
 
-  // fallback
-  return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+  console.log('→ reply:', reply);
+  console.groupEnd();
+  return reply;
 }
 
 // Expondo no escopo global
 window.getResponse = getResponse;
-

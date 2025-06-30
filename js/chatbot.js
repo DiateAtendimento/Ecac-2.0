@@ -20,14 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     answer:   'assets/frames/04-answer.svg',
   };
 
-  let ratingTimeout;   // timer para avaliação
-  let closeTimeout;    // timer para fechamento
+  let ratingTimeout, closeTimeout;
 
   function setFrame(name) {
     botIcon.src = frames[name] || frames.neutral;
   }
 
-  // transforma URLs em <a> e escapa o resto do texto
   function linkify(text) {
     const urlRegex = /(\bhttps?:\/\/[^\s]+)/gi;
     return text
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(urlRegex, '<a href="$1" target="_blank" rel="noopener">$1</a>');
   }
 
-  // adiciona mensagem simples, renderizando links e texto puro
   function addMessage(text, sender) {
     const msgEl = document.createElement('div');
     msgEl.className = `msg ${sender}`;
@@ -51,12 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const textEl = document.createElement('div');
     textEl.className = 'text';
-    if (sender === 'bot') {
-      // renderiza links
-      textEl.innerHTML = linkify(text);
-    } else {
-      textEl.textContent = text;
-    }
+    if (sender === 'bot') textEl.innerHTML = linkify(text);
+    else                textEl.textContent = text;
 
     if (sender === 'bot') {
       const copyBtn = document.createElement('button');
@@ -78,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     chatBody.scrollTop = chatBody.scrollHeight;
   }
 
-  // adiciona mensagem em HTML (para usar <br>, <em>, etc.)
   function addHTMLMessage(html, sender) {
     const msgEl = document.createElement('div');
     msgEl.className = `msg ${sender}`;
@@ -86,13 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatar = document.createElement('img');
     avatar.className = 'avatar';
     avatar.src = sender === 'user'
-      ? 'assets/imagens/icon-user-conversation.svg'
-      : 'assets/imagens/icon-chatbot-conversation.svg';
+      ? 'assets/icon-user-conversation.svg'
+      : 'assets/icon-chatbot-conversation.svg';
     avatar.alt = sender === 'user' ? 'Você' : 'Bot';
 
     const textEl = document.createElement('div');
     textEl.className = 'text';
-    textEl.innerHTML = html;  // aceita tags como <br> e <em>
+    textEl.innerHTML = html;
 
     if (sender === 'bot') {
       const copyBtn = document.createElement('button');
@@ -118,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(ratingTimeout);
     clearTimeout(closeTimeout);
 
-    // após 2 minutos: solicita avaliação
     ratingTimeout = setTimeout(() => {
       addHTMLMessage(
         `Como você avaliaria esta conversa?<br>
@@ -130,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }, 2 * 60 * 1000);
 
-    // após 3 minutos: finaliza
     closeTimeout = setTimeout(() => {
       addMessage('Por inatividade, encerrando o chat. Obrigado!', 'bot');
       setTimeout(() => chatBody.innerHTML = '', 1000);
@@ -141,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const userText = inputField.value.trim();
     if (!userText) return;
 
+    console.log('→ USER:', userText);
+
     resetInactivityTimer();
     setFrame('thinking');
     addMessage(userText, 'user');
@@ -149,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setFrame('waiting');
     setTimeout(() => {
       const reply = window.getResponse(userText);
+      console.log('← BOT :', reply);
       setFrame('answer');
       addMessage(reply, 'bot');
       setTimeout(() => setFrame('neutral'), 2000);
