@@ -1,0 +1,27 @@
+{
+  "name": "ecac-2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiateAtendimento/Ecac-2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiateAtendimento/Ecac-2.0/issues"
+  },
+  "homepage": "https://github.com/DiateAtendimento/Ecac-2.0#readme",
+  "devDependencies": {
+    "jest": "^30.0.3"
+  },
+  "dependencies": {
+    "natural": "^8.1.0",
+    "string-similarity": "^4.0.4"
+  }
+}

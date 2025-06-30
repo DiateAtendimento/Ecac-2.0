@@ -1,24 +1,174 @@
 // qa.js
 
 /**
- * Função de normalização de texto:
- * - remove acentos
- * - converte para minúsculas
- * - remove pontuação supérflua
+ * 1) Normalização de texto:
+ *    - remove acentos
+ *    - converte pra minúsculas
+ *    - remove pontuação supérflua
+ * 2) Stemming de Porter (lib `natural`)
+ * 3) Expansão de sinônimos nos padrões
+ * 4) Matching em três camadas: regex refinado → fuzzy string → embeddings fallback
  */
+
+const natural = require('natural');
+const stringSimilarity = require('string-similarity');
+
+/** 
+ * Dicionário de sinônimos para termos-chave (expanda conforme necessidade) 
+ */
+const SYNONYMS = {
+  // cumprimentos e agradecimentos (opcional)
+  saudacao:        ['oi', 'olá', 'bom dia', 'boa tarde', 'boa noite'],
+  agradecimento:   ['obrigado', 'valeu', 'brigad', 'agradec'],
+
+  // ECAC
+  ecac:            ['ecac', 'portal ecac', 'centro virtual'],
+  centro:          ['centro', 'portal'],
+  virtual:         ['virtual'],
+
+  // regras de batimento
+  regra:           ['regra', 'norma', 'artigo'],
+  batimento:       ['abatimento', 'batimento', 'cheque'],
+  duplicidade:     ['duplicidade', 'dupla', 'duplo'],
+  divergencia:     ['divergência', 'discordância', 'diferença'],
+  comprovacao:     ['comprovação', 'prova', 'comprovante'],
+  beneficios: ['benefícios', 'vantagens', 'beneficio'],
+  transferencia:   ['transferência', 'remessa', 'transferir'],
+
+  // parcelas e pagamentos
+  parcelas:        ['parcelas', 'prestações', 'faturas', 'mensalidades'],
+  parcela:         ['parcela', 'prestação', 'fatura'],
+  pagamento:       ['pagamento', 'pagamentos', 'quitação', 'pago'],
+  antecipar:       ['antecipar', 'antecipação'],
+  atraso:          ['atraso', 'atrasado', 'retroativo'],
+
+  // guias e cálculos
+  guia:            ['guia', 'boleto', 'documento de recolhimento'],
+  calculo:         ['cálculo', 'calcul', 'operação'],
+  manual:          ['manual'],
+  calculoexato:    ['calculoexato', 'calculo exato'],
+
+  // DIPR / DPIN / MSC / CRP / RPC
+  dipr:            ['dipr', 'demonstrativo'],
+  dpin:            ['dpin', 'investimento'],
+  msc:             ['msc', 'matriz de saldos contábeis'],
+  siconfi:         ['siconfi', 'siconf'],
+  crp:             ['crp', 'certificado', 'previdência'],
+  crpEmergencial:  ['crp emergencial', 'art. 249', 'inciso'],
+
+  rpc:             ['rpc', 'rpc x dipr'],
+
+  // CADPREV / GESCON / SEI / INSS / DATAPREV / COMPREV
+  cadprev:         ['cadprev', 'cadastro', 'cadprev-web'],
+  gescon:          ['gescon', 'gescon-rpps', 'ticket', 'chamado'],
+  sei:             ['sei', 's.e.i.', 'processo externo'],
+  inss:            ['inss', 'rgps', 'meu.inss.gov.br'],
+  dataprev:        ['dataprev', 'acesso.dataprev.gov.br'],
+  comprev:         ['comprev', 'bg comprev', 'pronto.dataprev.gov.br'],
+
+  // normativos e legislação
+  portaria:        ['portaria', 'portaria mtp', 'mte'],
+  decreto:         ['decreto', 'decreto-lei', 'decreto nº'],
+  lei:             ['lei', 'artigo', 'art.', 'codigo'],
+  emenda:          ['emenda', 'emenda constitucional'],
+  constitucional:  ['constitucional'],
+
+  // prazos / datas / competências
+  prazo:           ['prazo', 'vencimento', 'deadline'],
+  competencia:     ['competência', 'competencia', 'mês', 'periodo'],
+  nonagenial:      ['noventena', 'nonagenial', '90 dias'],
+
+  // assinaturas e requisitos
+  assinatura:      ['assinatura', 'rubrica'],
+  requisitos:      ['requisitos', 'condições', 'critério'],
+
+  // análises e pedidos
+  pedido:          ['pedido', 'solicitação', 'requerimento'],
+  analise:         ['análise', 'avaliacao', 'verificação'],
+
+  // antecedentes criminais
+  antecedentes:    ['antecedentes', 'historico'],
+  criminais:       ['criminais', 'penal', 'certidões negativas'],
+
+  // provas de vida
+  prova:           ['prova', 'prova de vida', 'processa arquivos'],
+
+  // termos diversos
+  termo:           ['termo', 'documento'],
+  reparcelamento:  ['reparcelamento', 'reparcelar'],
+  envio:           ['envio', 'enviar', 'remeter', 'submeter'],
+  reenvio:         ['reenvio', 'reenviar'],
+  erro:            ['erro', 'falha', 'problema'],
+  irregular:       ['irregular', 'anomalia'],
+
+  // PAP / NAF
+  pap:             ['pap', 'processo administrativo previdenciario'],
+  naf:             ['naf'],
+  impugnacao:      ['impugnação', 'contestação'],
+  copia:           ['cópia', 'relatório'],
+
+  // E-Social, Pró-Gestão, Certificação
+  esocial:         ['esocial'],
+  progestao:       ['pró-gestão', 'progestao'],
+  certificacao:    ['certificação', 'certificacao']
+};
+
+
+/**
+ * Substitui uma expressão por uma versão que inclui sinônimos
+ */
+function escapeForRegExp(str) {
+  return str.replace(/[[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+function expandWithSynonyms(expr) {
+  for (const [rawKey, variants] of Object.entries(SYNONYMS)) {
+    const key = escapeForRegExp(rawKey);
+    const re = new RegExp(`\\b${key}\\b`, 'gi');
+    if (re.test(expr)) {
+      expr = expr.replace(re, `(?:${variants.map(escapeForRegExp).join('|')})`);
+    }
+  }
+  return expr;
+}
+
+
 function normalize(text) {
   return text
     .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // remove acentos
-    .replace(/[^\w\s]/g, ' ')                         // substitui pontuação por espaço
-    .replace(/\s+/g, ' ')                             // reduz múltiplos espaços
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
+function stemTokens(text) {
+  return text
+    .split(/\s+/)
+    .map(t => natural.PorterStemmer.stem(t))
+    .join(' ');
+}
+
 /**
- * Configuração original de intents (com padrões regex)
- * Mantemos este array para derivar automaticamente os patterns refinados
+ * Cria um RegExp refinado a partir de um padrão original:
+ *  - lookbehind para ignorar "não X"
+ *  - cobertura de artigos ("o ECAC", "no ECAC")
+ *  - boundaries e sinônimos
  */
+function makePattern(origRegex, flags = 'i') {
+  let src = origRegex.source;
+  // permitir artigos antes do termo
+  src = src.replace(/\\b(ecac)\\b/i, '(?:[oO]s?\\s+)?$1');
+  // expandir sinônimos
+  src = expandWithSynonyms(src);
+  return new RegExp(`(?<!nao\\s)${src}`, flags);
+}
+
+
+// ———————————————————————————————————————————————————————————————
+// Definição completa das intents originais (idem à sua configuração atual):
+// ———————————————————————————————————————————————————————————————
+
 const originalIntents = [
   {
     name: 'saudacao',
@@ -1007,22 +1157,24 @@ const originalIntents = [
 ];
 
 
-/**
- * Prepara as intents finais a partir das originais:
- * 1) threshold: 1→2, 2→3, ≥3 mantém
- * 2) refina padrões: lookbehind negativo, word boundaries
- * 3) adiciona padrão de contexto processual
- */
-const intents = originalIntents.map(({ name, threshold, patterns, responses }) => {
-  const refined = patterns.map(pat =>
-    new RegExp(`(?<!nao\\s)${pat.source}`, pat.flags)
-  );
-  return { name, threshold, patterns: refined, responses };
-});
+// ———————————————————————————————————————————————————————————————
+// Montagem das intents refinadas:
+//    - thresholds ajustados (1→2, 2→3, ≥3 permanece)
+//    - padrões recompilados via makePattern()
+// ———————————————————————————————————————————————————————————————
 
-/**
- * Respostas de fallback (quando nenhuma intent atinge threshold)
- */
+const intents = originalIntents.map(({ name, threshold, patterns, responses }) => ({
+  name,
+  threshold: threshold + 1,
+  patterns: patterns.map(pat => makePattern(pat, pat.flags)),
+  responses
+}));
+
+
+// ———————————————————————————————————————————————————————————————
+// Respostas de fallback quando nada bater
+// ———————————————————————————————————————————————————————————————
+
 const fallbackResponses = [
   'Desculpe, não entendi. Pode reformular?',
   'Humm, não captei. Você pode dizer de outra forma?',
@@ -1030,46 +1182,72 @@ const fallbackResponses = [
 ];
 
 
+// ———————————————————————————————————————————————————————————————
+// Stub para fallback de embeddings (integre seu modelo real aqui)
+// ———————————————————————————————————————————————————————————————
+
+function embeddingFallback(_text, _intent) {
+  // Sempre false por enquanto, mas se no futuro você integrar um modelo de embeddings,
+  // passe aqui para retornar `true` quando quiser que a intent case por similaridade profunda.
+  return false;
+}
+
 /**
- * Função principal: recebe o texto do usuário e retorna uma resposta
- * com base nos padrões refinados e thresholds.
+ * Função principal: recebe texto do usuário e retorna uma resposta
  */
 function getResponse(text) {
-  const norm = normalize(text);
+  const normRaw   = normalize(text);
+  const normStem  = stemTokens(normRaw);
 
-  // === DEBUG ===
-  console.groupCollapsed(`getResponse('${text}') → normalized: '${norm}'`);
-  // ==============
-
-  // calcula score por intent testando cada regex refinado
-  const scored = intents.map(({ name, threshold, patterns, responses }) => {
+  // 1) Regex refinado
+  let scored = intents.map(({ name, threshold, patterns, responses }) => {
     const score = patterns.reduce(
-      (acc, pat) => acc + (pat.test(norm) ? 1 : 0),
+      (acc, pat) => acc + (pat.test(normStem) ? 1 : 0),
       0
     );
-    console.log(`  [${name}] score = ${score} (threshold ${threshold})`);
     return { name, threshold, responses, score };
   });
+  let matches = scored.filter(i => i.score >= i.threshold);
 
-  // filtra apenas as que passaram do threshold
-  const matches = scored.filter(x => x.score >= x.threshold);
-
-  let reply;
-  if (matches.length > 0) {
-    // pega as de maior score
-    matches.sort((a, b) => b.score - a.score);
-    const topScore = matches[0].score;
-    const topIntents = matches.filter(m => m.score === topScore);
-    const chosen = topIntents[Math.floor(Math.random() * topIntents.length)];
-    reply = chosen.responses[Math.floor(Math.random() * chosen.responses.length)];
-  } else {
-    reply = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+  // 2) Fuzzy string matching se nada passar por regex
+  if (matches.length === 0) {
+    const SIM_THRESHOLD = 0.6;
+    const sims = intents.map(i => ({
+      ...i,
+      sim: stringSimilarity.compareTwoStrings(normRaw, i.name)
+    }));
+    const best = sims.reduce((a, b) => a.sim > b.sim ? a : b);
+    if (best.sim > SIM_THRESHOLD) {
+      matches = [ best ];
+    }
   }
 
-  console.log('→ reply:', reply);
-  console.groupEnd();
+  // 3) Embedding fallback (síncrono agora)
+  if (matches.length === 0) {
+    for (const intent of intents) {
+      if (embeddingFallback(normRaw, intent)) {
+        matches = [ intent ];
+        break;
+      }
+    }
+  }
+
+  // Escolhe resposta
+  let reply;
+  if (matches.length > 0) {
+    matches.sort((a, b) => (b.score || b.sim || 0) - (a.score || a.sim || 0));
+    const chosen = matches[0];
+    reply = chosen.responses[
+      Math.floor(Math.random() * chosen.responses.length)
+    ];
+  } else {
+    reply = fallbackResponses[
+      Math.floor(Math.random() * fallbackResponses.length)
+    ];
+  }
+
   return reply;
 }
 
-// Expondo no escopo global
-window.getResponse = getResponse;
+module.exports = { getResponse, intents };
+
