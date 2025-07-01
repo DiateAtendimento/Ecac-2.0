@@ -1,5 +1,3 @@
-// qa.js
-
 /**
  * 1) Normalização de texto:
  *    - remove acentos
@@ -13,126 +11,88 @@
 const natural = require('natural');
 const stringSimilarity = require('string-similarity');
 
-/** 
- * Dicionário de sinônimos para termos-chave (expanda conforme necessidade) 
- */
+
 const SYNONYMS = {
-  // cumprimentos e agradecimentos (opcional)
   saudacao:        ['oi', 'olá', 'bom dia', 'boa tarde', 'boa noite'],
   agradecimento:   ['obrigado', 'valeu', 'brigad', 'agradec'],
-
-  // ECAC
   ecac:            ['ecac', 'portal ecac', 'centro virtual'],
   centro:          ['centro', 'portal'],
   virtual:         ['virtual'],
-
-  // regras de batimento
   regra:           ['regra', 'norma', 'artigo'],
   batimento:       ['abatimento', 'batimento', 'cheque'],
   duplicidade:     ['duplicidade', 'dupla', 'duplo'],
   divergencia:     ['divergência', 'discordância', 'diferença'],
   comprovacao:     ['comprovação', 'prova', 'comprovante'],
-  beneficios: ['benefícios', 'vantagens', 'beneficio'],
+  beneficios:      ['benefícios', 'vantagens', 'beneficio'],
   transferencia:   ['transferência', 'remessa', 'transferir'],
-
-  // parcelas e pagamentos
   parcelas:        ['parcelas', 'prestações', 'faturas', 'mensalidades'],
   parcela:         ['parcela', 'prestação', 'fatura'],
   pagamento:       ['pagamento', 'pagamentos', 'quitação', 'pago'],
   antecipar:       ['antecipar', 'antecipação'],
   atraso:          ['atraso', 'atrasado', 'retroativo'],
-
-  // guias e cálculos
   guia:            ['guia', 'boleto', 'documento de recolhimento'],
   calculo:         ['cálculo', 'calcul', 'operação'],
   manual:          ['manual'],
   calculoexato:    ['calculoexato', 'calculo exato'],
-
-  // DIPR / DPIN / MSC / CRP / RPC
   dipr:            ['dipr', 'demonstrativo'],
   dpin:            ['dpin', 'investimento'],
   msc:             ['msc', 'matriz de saldos contábeis'],
   siconfi:         ['siconfi', 'siconf'],
   crp:             ['crp', 'certificado', 'previdência'],
   crpEmergencial:  ['crp emergencial', 'art. 249', 'inciso'],
-
   rpc:             ['rpc', 'rpc x dipr'],
-
-  // CADPREV / GESCON / SEI / INSS / DATAPREV / COMPREV
   cadprev:         ['cadprev', 'cadastro', 'cadprev-web'],
   gescon:          ['gescon', 'gescon-rpps', 'ticket', 'chamado'],
   sei:             ['sei', 's.e.i.', 'processo externo'],
   inss:            ['inss', 'rgps', 'meu.inss.gov.br'],
   dataprev:        ['dataprev', 'acesso.dataprev.gov.br'],
   comprev:         ['comprev', 'bg comprev', 'pronto.dataprev.gov.br'],
-
-  // normativos e legislação
   portaria:        ['portaria', 'portaria mtp', 'mte'],
   decreto:         ['decreto', 'decreto-lei', 'decreto nº'],
   lei:             ['lei', 'artigo', 'art.', 'codigo'],
   emenda:          ['emenda', 'emenda constitucional'],
   constitucional:  ['constitucional'],
-
-  // prazos / datas / competências
   prazo:           ['prazo', 'vencimento', 'deadline'],
   competencia:     ['competência', 'competencia', 'mês', 'periodo'],
   nonagenial:      ['noventena', 'nonagenial', '90 dias'],
-
-  // assinaturas e requisitos
   assinatura:      ['assinatura', 'rubrica'],
   requisitos:      ['requisitos', 'condições', 'critério'],
-
-  // análises e pedidos
   pedido:          ['pedido', 'solicitação', 'requerimento'],
   analise:         ['análise', 'avaliacao', 'verificação'],
-
-  // antecedentes criminais
   antecedentes:    ['antecedentes', 'historico'],
   criminais:       ['criminais', 'penal', 'certidões negativas'],
-
-  // provas de vida
   prova:           ['prova', 'prova de vida', 'processa arquivos'],
-
-  // termos diversos
   termo:           ['termo', 'documento'],
   reparcelamento:  ['reparcelamento', 'reparcelar'],
   envio:           ['envio', 'enviar', 'remeter', 'submeter'],
   reenvio:         ['reenvio', 'reenviar'],
   erro:            ['erro', 'falha', 'problema'],
   irregular:       ['irregular', 'anomalia'],
-
-  // PAP / NAF
   pap:             ['pap', 'processo administrativo previdenciario'],
   naf:             ['naf'],
   impugnacao:      ['impugnação', 'contestação'],
   copia:           ['cópia', 'relatório'],
-
-  // E-Social, Pró-Gestão, Certificação
   esocial:         ['esocial'],
   progestao:       ['pró-gestão', 'progestao'],
   certificacao:    ['certificação', 'certificacao']
 };
 
-
-/**
- * Substitui uma expressão por uma versão que inclui sinônimos
- */
 function escapeForRegExp(str) {
   return str.replace(/[[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
-
 function expandWithSynonyms(expr) {
   for (const [rawKey, variants] of Object.entries(SYNONYMS)) {
     const key = escapeForRegExp(rawKey);
     const re = new RegExp(`\\b${key}\\b`, 'gi');
     if (re.test(expr)) {
-      expr = expr.replace(re, `(?:${variants.map(escapeForRegExp).join('|')})`);
+      expr = expr.replace(
+        re,
+        `(?:${variants.map(escapeForRegExp).join('|')})`
+      );
     }
   }
   return expr;
 }
-
-
 function normalize(text) {
   return text
     .toLowerCase()
@@ -141,32 +101,21 @@ function normalize(text) {
     .replace(/\s+/g, ' ')
     .trim();
 }
-
 function stemTokens(text) {
   return text
     .split(/\s+/)
     .map(t => natural.PorterStemmer.stem(t))
     .join(' ');
 }
-
-/**
- * Cria um RegExp refinado a partir de um padrão original:
- *  - lookbehind para ignorar "não X"
- *  - cobertura de artigos ("o ECAC", "no ECAC")
- *  - boundaries e sinônimos
- */
 function makePattern(origRegex, flags = 'i') {
   let src = origRegex.source;
-  // permitir artigos antes do termo
   src = src.replace(/\\b(ecac)\\b/i, '(?:[oO]s?\\s+)?$1');
-  // expandir sinônimos
   src = expandWithSynonyms(src);
   return new RegExp(`(?<!nao\\s)${src}`, flags);
 }
 
-
 // ———————————————————————————————————————————————————————————————
-// Definição completa das intents originais (idem à sua configuração atual):
+// Definição das intents originais
 // ———————————————————————————————————————————————————————————————
 
 const originalIntents = [
@@ -503,7 +452,8 @@ const originalIntents = [
       /compet(?:ê|e)ncia.*13(?:º|o)/i,
       /instruç(?:ão|ao).*dipr.*13(?:º|o)/i,
       /cadprev[- ]?web/i,
-      /não.*aparece.*13(?:º|o)/i
+      /não.*aparece.*13(?:º|o)/i,
+      /dipr.*13\b/i
     ],
     responses: [
       'A competência 13° não precisa ser incluída manualmente: o CADPREV-Web gera automaticamente a competência 13° a partir dos lançamentos das rubricas que contêm “13” no nome (por exemplo, “13-PAT-SEG”).'
@@ -525,7 +475,7 @@ const originalIntents = [
   },
   {
     name: 'dipr_pagamentos_antecipados',
-    threshold: 1,
+    threshold: 2,
     patterns: [
       /\bdipr\b/i,
       /regime.*compet[eê]ncia/i,
@@ -638,13 +588,10 @@ const originalIntents = [
     threshold: 1,
     patterns: [
       /pens[oõ]es?.*morte/i,
+      /plano.*benefici[oi]s?/i,
+      /integrado/i,
       /plano de benefícios integrado apenas por aposentador(?:ias|ia)es? e pens[oõ]es? por morte/i,
-      /não.*encaminhou.*legislaç(?:ão|ao)/i,
-      /lei\s*n[oº]?\s*3342/i,
-      /aux[ií]lio[- ]?doen[cç]a/i,
-      /aux[ií]lio[- ]?reclus(?:ão|ao)/i,
-      /sal[iá]rio[- ]?fam[ií]lia/i,
-      /sal[iá]rio[- ]?maternidade/i,
+      /kei.*3342/i,
       /Emenda Constitucional\s*103\/2019/i
     ],
     responses: [
@@ -835,16 +782,13 @@ const originalIntents = [
   },
   {
     name: 'plano_custeio_novenena',
-    threshold: 1,
+    threshold: 2,
     patterns: [
-      /noven[ea]/i,
-      /nonag[eé]simal/i,
-      /nonag[eé]sim[oi]\b/i,
-      /\b90\s*dias?\b/i,
-      /portaria\s*1\.467\/2022/i,
-      /art\.?\s*9º/i,
-      /majora(?:ção|cao).+al[ií]quotas?/i,
-      /institui(?:ção|cao).+al[ií]quotas?/i
+      /\bnoventena\b/i,              
+        /\b90\s*dias?\b/i,             
+        /portaria.*1\s*467\s*2022/i,   
+        /nonag[eé]simo/i,              
+        /art\.?\s*9º/i                 
     ],
     responses: [
       'Em caso de instituição ou majoração de alíquotas, aplica-se a noventena (anterioridade nonagesimal) de 90 dias: durante esse período vigora a alíquota anterior e a nova só entra em vigor no 1º dia do mês subsequente ao nonagésimo dia da publicação, conforme Portaria nº 1.467/2022 (art. 9º, I) e art. 149 c/c art. 150, III, "c" da CF. Alíquotas não podem ter efeitos retroativos e não se alteram por Decreto.'
@@ -982,14 +926,12 @@ const originalIntents = [
   },
   {
     name: 'contabilidade_pos_decreto',
-    threshold: 1,
+    threshold: 2,
     patterns: [
-      /\bmsc\b/i,
-      /gescon/i,
-      /decreto\s*11\.356\/2023/i,
-      /divis[aã]o.*contabilidade/i,
-      /contabilidade.*apos.*decreto/i,
-      /contabilidade.*extinta/i
+      /contabilidad(?:e|a).*apos.*decreto/i,   
+      /\bdecreto\s*11\s*356\s*2023\b/i,        
+      /contabilidade.*extinta/i,
+      /divis[aã]o.*contabilidade/i
     ],
     responses: [
       'Após a recriação do MPS (Decreto nº 11.356/2023), a Divisão de Contabilidade foi extinta. Para dúvidas contábeis, consulte a Secretaria do Tesouro Nacional ou o Tribunal de Contas do Estado, pois não há suporte contábil disponível via GESCON.'
@@ -1135,45 +1077,30 @@ const originalIntents = [
   },
   {
     name: 'previdencia_complementar',
-    threshold: 1,
+    threshold: 2,
     patterns: [
-      /\bpreviden[çc]ia complementar\b/i,
+      /\bpreviden[çc]ia complementar\b/i,   
+      /\b4\s*bimestre\b/i,                 
+      /\bjul\s*ago(?:sto)?\b/i,             
       /regime.*previden[çc]ia complementar/i,
-      /conv[eê]nio.*ades[ãa]o/i,
-      /crit[eê]rio.*complementar/i,
-      /contrata.*servidores.*teto/i,
-      /4(?:º|o)\s*bimestre/i,
-      /jul(?:ho)?[-\/]?ago(?:sto)?/i,
-      /surpc\.cgeac@previdencia.gov.br/i,
-      /sala.*atendimento virtual/i,
-      /\bsexta-?feira\b/i,
-      /14:30.*17h/i,
       /perguntas.*frequentes/i
     ],
     responses: [
       'Se o critério “Instituição do regime de previdência complementar” constar irregular, confirme se a contratação de servidores acima do teto foi assinalada corretamente no DIPR do 4º bimestre (jul/ago) e retifique se necessário. Para implantação do Regime de Previdência Complementar, envie e-mail para surpc.cgeac@previdencia.gov.br ou participe da sala virtual da SRPPS às sextas-feiras, das 14:30 às 17h (agende em https://outlook.office365.com/owa/calendar/Webconferncia1@mte.gov.br/bookings/). Consulte as FAQs em https://www.gov.br/trabalho-e-previdencia/pt-br/assuntos/previdencia-complementar/mais-informacoes/perguntas-frequentes-para-entes-federativos'
     ]
-  }
+  },
 ];
 
-
 // ———————————————————————————————————————————————————————————————
-// Montagem das intents refinadas:
-//    - thresholds ajustados (1→2, 2→3, ≥3 permanece)
-//    - padrões recompilados via makePattern()
+// Montagem das intents refinadas
 // ———————————————————————————————————————————————————————————————
 
 const intents = originalIntents.map(({ name, threshold, patterns, responses }) => ({
   name,
-  threshold: threshold + 1,
+  threshold: threshold === 1 || threshold === 2 ? threshold : threshold + 1,
   patterns: patterns.map(pat => makePattern(pat, pat.flags)),
   responses
 }));
-
-
-// ———————————————————————————————————————————————————————————————
-// Respostas de fallback quando nada bater
-// ———————————————————————————————————————————————————————————————
 
 const fallbackResponses = [
   'Desculpe, não entendi. Pode reformular?',
@@ -1181,49 +1108,45 @@ const fallbackResponses = [
   'Não tenho certeza do que quis dizer. Pode tentar novamente?'
 ];
 
-
-// ———————————————————————————————————————————————————————————————
-// Stub para fallback de embeddings (integre seu modelo real aqui)
-// ———————————————————————————————————————————————————————————————
-
 function embeddingFallback(_text, _intent) {
-  // Sempre false por enquanto, mas se no futuro você integrar um modelo de embeddings,
-  // passe aqui para retornar `true` quando quiser que a intent case por similaridade profunda.
   return false;
 }
 
-/**
- * Função principal: recebe texto do usuário e retorna uma resposta
- */
 function getResponse(text) {
-  const normRaw   = normalize(text);
-  const normStem  = stemTokens(normRaw);
+  const normRaw  = normalize(text);
+  const normStem = stemTokens(normRaw);
 
   // 1) Regex refinado
-  let scored = intents.map(({ name, threshold, patterns, responses }) => {
-    const score = patterns.reduce(
-      (acc, pat) => acc + (pat.test(normStem) ? 1 : 0),
+  let scored = intents.map(({ name, threshold, patterns, responses }) => ({
+    name,
+    threshold,
+    responses,
+    score: patterns.reduce(
+      (acc, pat) => acc + (pat.test(normRaw) || pat.test(normStem) ? 1 : 0),
       0
-    );
-    return { name, threshold, responses, score };
-  });
+    )
+  }));
   let matches = scored.filter(i => i.score >= i.threshold);
 
-  // 2) Fuzzy string matching se nada passar por regex
-  if (matches.length === 0) {
+  // 2) Fuzzy string matching
+  if (!matches.length) {
     const SIM_THRESHOLD = 0.6;
-    const sims = intents.map(i => ({
-      ...i,
-      sim: stringSimilarity.compareTwoStrings(normRaw, i.name)
-    }));
+    const sims = intents.map(intent => {
+      let maxSim = stringSimilarity.compareTwoStrings(normRaw, intent.name);
+      for (const r of intent.responses) {
+        const sim = stringSimilarity.compareTwoStrings(normRaw, normalize(r));
+        if (sim > maxSim) maxSim = sim;
+      }
+      return { intent, sim: maxSim };
+    });
     const best = sims.reduce((a, b) => a.sim > b.sim ? a : b);
     if (best.sim > SIM_THRESHOLD) {
-      matches = [ best ];
+      matches = [ best.intent ];
     }
   }
 
-  // 3) Embedding fallback (síncrono agora)
-  if (matches.length === 0) {
+  // 3) Embeddings fallback
+  if (!matches.length) {
     for (const intent of intents) {
       if (embeddingFallback(normRaw, intent)) {
         matches = [ intent ];
@@ -1232,10 +1155,10 @@ function getResponse(text) {
     }
   }
 
-  // Escolhe resposta
+  // Seleção final da resposta
   let reply;
-  if (matches.length > 0) {
-    matches.sort((a, b) => (b.score || b.sim || 0) - (a.score || a.sim || 0));
+  if (matches.length) {
+    matches.sort((a, b) => (b.score || 0) - (a.score || 0));
     const chosen = matches[0];
     reply = chosen.responses[
       Math.floor(Math.random() * chosen.responses.length)
@@ -1245,9 +1168,7 @@ function getResponse(text) {
       Math.floor(Math.random() * fallbackResponses.length)
     ];
   }
-
   return reply;
 }
 
 module.exports = { getResponse, intents };
-
