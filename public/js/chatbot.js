@@ -1,5 +1,16 @@
 // chatbot.js
 
+// Função para chamar o backend Node.js + Express + Transformers.js
+async function getResponse(prompt) {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
+  const data = await res.json();
+  return data.reply;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const botButton   = document.getElementById('chatbot');
   const botIcon     = document.getElementById('chatbot-icon');
@@ -14,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const frames = {
-    neutral:  'assets/frames/01-neutral.svg',
-    waiting:  'assets/frames/02-waiting.svg',
-    thinking: 'assets/frames/03-thinking.svg',
-    answer:   'assets/frames/04-answer.svg',
+    neutral:  '/public/assets/frames/01-neutral.svg',
+    waiting:  '/public/assets/frames/02-waiting.svg',
+    thinking: '/public/assets/frames/03-thinking.svg',
+    answer:   '/public/assets/frames/04-answer.svg',
   };
 
   let ratingTimeout, closeTimeout;
@@ -42,14 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatar = document.createElement('img');
     avatar.className = 'avatar';
     avatar.src = sender === 'user'
-      ? 'assets/icon-user-conversation.svg'
-      : 'assets/icon-chatbot-conversation.svg';
+      ? '/public/assets/imagens/icon-user-conversation.svg'
+      : '/public/assets/imagens/icon-chatbot-conversation.svg';
     avatar.alt = sender === 'user' ? 'Você' : 'Bot';
 
     const textEl = document.createElement('div');
     textEl.className = 'text';
     if (sender === 'bot') textEl.innerHTML = linkify(text);
-    else                textEl.textContent = text;
+    else                 textEl.textContent = text;
 
     if (sender === 'bot') {
       const copyBtn = document.createElement('button');
@@ -78,8 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatar = document.createElement('img');
     avatar.className = 'avatar';
     avatar.src = sender === 'user'
-      ? 'assets/icon-user-conversation.svg'
-      : 'assets/icon-chatbot-conversation.svg';
+      ? '/public//assets/imagens/icon-user-conversation.svg'
+      : '/public/assets/imagens/icon-chatbot-conversation.svg';
     avatar.alt = sender === 'user' ? 'Você' : 'Bot';
 
     const textEl = document.createElement('div');
@@ -127,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3 * 60 * 1000);
   }
 
-  function sendMessage() {
+  // Envia a mensagem do usuário e busca a resposta do backend
+  async function sendMessage() {
     const userText = inputField.value.trim();
     if (!userText) return;
 
@@ -137,15 +149,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setFrame('thinking');
     addMessage(userText, 'user');
     inputField.value = '';
-
     setFrame('waiting');
-    setTimeout(() => {
-      const reply = window.getResponse(userText);
+
+    try {
+      const reply = await getResponse(userText);
       console.log('← BOT :', reply);
       setFrame('answer');
       addMessage(reply, 'bot');
-      setTimeout(() => setFrame('neutral'), 2000);
-    }, 500);
+    } catch (err) {
+      console.error('Erro ao obter resposta:', err);
+      addMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot');
+    }
+
+    setTimeout(() => setFrame('neutral'), 2000);
   }
 
   function sendGreeting() {

@@ -54,53 +54,26 @@ const noticiasData = [
     title: 'Novo ECAC 2.0',
     description: 'Inovando o centro virtual...',
     date: '2025-06-27',
-    img: 'assets/noticias_img/noticia5.svg',
+    img: '/public/assets/noticias_img/noticia5.svg',
     link: 'noticias.html'
   },
   {
     title: 'Descomplicando a Atuária',
     description: 'O papel da coordenação...',
     date: '2025-05-30',
-    img: 'assets/noticias_img/noticia4.svg',
+    img: '/public/assets/noticias_img/noticia4.svg',
     link: 'noticia.html'
   },
   {
     title: 'Certificado profissional e o Pró-gestão',
     description: 'Desenvolva habilidades gerenciais...',
     date: '2025-05-19',
-    img: 'assets/noticias_img/noticia3.svg',
+    img: '/public/assets/noticias_img/noticia3.svg',
     link: 'noticia1.html'
   },
   
 ];
 
-const eventosData = [
-  {
-    title: 'Evento 3',
-    description: 'Assunto do evento 3...',
-    date: '2025-06-23',
-    location: 'Auditório Central',
-    img: 'assets/imagens/evento3.jpg',
-    link: 'evento3.html'
-  },
-  {
-    title: 'Evento 2',
-    description: 'Assunto do evento 2...',
-    date: '2025-06-21',
-    location: 'Sala de Reuniões',
-    img: 'assets/imagens/evento2.jpg',
-    link: 'evento2.html'
-  },
-  {
-    title: 'Evento 1',
-    description: 'Assunto do evento 1...',
-    date: '2025-06-20',
-    location: 'Plenário',
-    img: 'assets/imagens/evento1.jpg',
-    link: 'evento1.html'
-  },
-  
-];
 
 /**
  * Renderiza até 3 cards num container.
