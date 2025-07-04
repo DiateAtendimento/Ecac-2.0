@@ -1,27 +1,13 @@
 {
-  "name": "ecac-2.0",
+  "name": "ecac-chat",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",           
   "scripts": {
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DiateAtendimento/Ecac-2.0.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DiateAtendimento/Ecac-2.0/issues"
-  },
-  "homepage": "https://github.com/DiateAtendimento/Ecac-2.0#readme",
-  "devDependencies": {
-    "jest": "^30.0.3"
+    "start": "node server.js"
   },
   "dependencies": {
-    "natural": "^8.1.0",
-    "string-similarity": "^4.0.4"
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "@xenova/transformers": "^2.0.0"
   }
 }

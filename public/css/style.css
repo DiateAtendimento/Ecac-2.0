@@ -130,7 +130,7 @@ body {
   width: 100%;
   height: 100vh;
   padding-top: 10rem;
-  background: #20306e url('../assets/imagens/hero-bg-desktop_2.svg') top center/cover no-repeat;
+  background: #20306e url('/public/assets/imagens/hero-bg-desktop_2.svg') top center/cover no-repeat;
   display: flex;
   align-items: flex-start;
 }
@@ -783,7 +783,7 @@ body {
 /* ===== RESPONSIVE BREAKPOINTS ===== */
 @media (max-width: 1024px) {
   .hero {
-    background-image: url('../assets/imagens/hero-bg-tablet.svg');
+    background-image: url('/public/assets/imagens/hero-bg-tablet.svg');
   }
   .hero__content > h1 {
     font-size: 3rem;
@@ -827,13 +827,13 @@ body {
     padding: 0.5rem 0;
   }
   .hero {
-    background-image: url('../assets/imagens/hero-bg-tablet-mobile-grande.svg');
+    background-image: url('public//assets/imagens/hero-bg-tablet-mobile-grande.svg');
     padding-top: 4rem;
   }
 }
 @media (max-width: 480px) {
   .hero {
-    background-image: url('../assets/imagens/hero-bg-tablet-mobile-pequeno.svg');
+    background-image: url('/public/assets/imagens/hero-bg-tablet-mobile-pequeno.svg');
     padding-top: 2rem;
   }
   .hero__content > h1 {
