@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECAC 2.0 - GESCON</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body class="gescon-page">
+  <!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container nav">
+      <button class="nav__toggle" aria-label="Abrir menu">
+        <span class="hamburger"></span>
+      </button>
+      <a href="/public/index.html" class="nav__logo">
+        <img src="/public/assets/imagens/logo.svg" alt="ECAC" width="150" height="50">
+      </a>
+      <nav class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Nosso DRPPS</a>
+            <ul class="dropdown-menu">
+              <li><a href="https://cruzandofronteiras.netlify.app/" target="_blank">Nossa Coordenação</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Sistemas</a>
+            <ul class="dropdown-menu">
+              <li><a href="/public/cadprev.html">CADPREV</a></li>
+              <li><a href="/public/gescon.html">GESCON</a></li>
+              <li><a href="#">SIGA-RPPS</a></li>
+              <li><a href="#">COMPREV</a></li>
+              <li><a href="#">SEI</a></li>
+              <li><a href="#">CNIS</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Serviços e Protocolos</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">CRP e Certidões</a></li>
+              <li><a href="#">Consultas (Fiscalização/Atuarial)</a></li>
+              <li><a href="#">Parcelamento e Repasses</a></li>
+              <li><a href="#">Emissão de Documentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Webconferências</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Horários</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Capacitação &amp; Treinamento</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Cursos e Tutoriais</a></li>
+              <li><a href="#">Portarias e Regulamentos</a></li>
+            </ul>
+          </li>
+          <li class="nav__item dropdown">
+            <a href="#" class="nav__link">Suporte</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ramais</a></li>
+              <li><a href="#">Canal de Atendimento</a></li>
+            </ul>
+          </li>
+          <li class="nav__item search-icon">
+            <a href="#">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+                <line x1="16.707" y1="16.293" x2="21" y2="20.586"
+                      stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero name-hero">
+    <div class="hero__content container">
+      <div class="hero__text">
+        <h1>GESCON</h1>
+        <img src="/public/assets/imagens/log-mps.svg" alt="Logo MPS" class="hero__logo">
+      </div>
+
+      <!-- coluna da direita: slider 3D -->
+        <div class="carousel-container" data-autoplay="true" data-autoplay-interval="4000">
+          <button class="carousel-nav prev" aria-label="Anterior">◀</button>
+          <div class="carousel-track-wrapper">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon1.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon2.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon3.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon4.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon5.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slidegescon6.svg"></div>
+            </div>
+          </div>
+          <button class="carousel-nav next" aria-label="Próximo">▶</button>
+        </div>
+    </div>
+  </section>
+
+  <section id="cadastro">
+    <div class="container">
+      <h2 class="section-title">Cadastro</h2>
+      <div class="grid-section">
+        <div class="grid-card" data-key="liberacao">
+          <img src="/public/assets/imagens/liberacao.svg"
+              alt="Ilustração Liberação de acesso"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Liberação de acesso</h3>
+            <p>Cadastre-se no portal CADPREV e envie o ofício de liberação</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="atribuicao">
+          <img src="/public/assets/imagens/atribuicao.svg"
+              alt="Ilustração Atribuição"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Atribuição de Responsabilidade</h3>
+            <p>Inclua, adicione e encerre funções de usuários no CADPREV</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="naoDesbloqueado">
+          <img src="/public/assets/imagens/naoDesbloqueado.svg"
+              alt="Ilustração Não Desbloqueado"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Não desbloqueado</h3>
+            <p>Passos para regularizar seu acesso: cadastro, ofício e vínculo de responsabilidades.</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="liberadoSemResponsabilidade">
+          <img src="/public/assets/imagens/liberadoSemResponsabilidade.svg"
+              alt="Ilustração Liberado sem Responsabilidade"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Sem responsabilidade</h3>
+            <p>Vincule o usuário a uma responsabilidade e comece a usar o CADPREV.</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="liberadoComSucesso">
+          <img src="/public/assets/imagens/liberadoComSucesso.svg"
+              alt="Ilustração Liberado com Sucesso"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Com sucesso</h3>
+            <p>Links e manuais essenciais após o desbloqueio.</p>
+          </div>
+        </div>
+
+        <div class="grid-card" data-key="webconferenciaGeral">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - Liberação de acesso</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="repasse-parcelamento">
+    <div class="container">
+      <h2 class="section-title">Repasse/Parcelamento – DIPR</h2>
+      <div class="grid-section">
+        
+        <div class="grid-card" data-key="consultaDIPR">
+          <img src="/public/assets/imagens/consultaDIPR.svg"
+              alt="Ilustração consulta DIPR"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>DIPR Irregular</h3>
+            <p>Encaminhamento está classificado como Irregular</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="consistenciaCaraterContributivo">
+          <img src="/public/assets/imagens/consistenciaCaraterContributivo.svg"
+              alt="Ilustração consistência caráter contributivo"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Consistência e Caráter Contributivo</h3>
+            <p>DIPR Consistência e Caráter Contributivo está classificado como Irregular. </p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="regraInativaDipr">
+          <img src="/public/assets/imagens/regraInativaDipr.svg"
+              alt="Ilustração Regra inativa DIPR"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Regra de batimento com status inativa</h3>
+          </div>
+        </div>
+        <div class="grid-card" data-key="webconferenciaRP">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - DIPR, Regras de batimento, NAP</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="atuaria">
+    <div class="container">
+      <h2 class="section-title">Atuária</h2>
+      <div class="grid-section">
+
+        <div class="grid-card" data-key="equilibrioFinanceiroAtuarial">
+          <img src="/public/assets/imagens/equilibrioFinanceiroAtuarial.svg"
+              alt="Ilustração equilibrio Financeiro Atuarial"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Encaminhamento NTA, DRAA e resultados de análises</h3>
+            <p>Encaminhamento NTA, DRAA e resultados das análises está classificado como Irregular</p>
+          </div>
+        </div>
+        
+        <div class="grid-card" data-key="webconferenciaAtuaria">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - Análise de Notificações e orientações sobre o DRAA</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contabilidade">
+    <div class="container">
+      <h2 class="section-title">Contabilidade</h2>
+      <div class="grid-section">
+
+        <div class="grid-card" data-key="extratoIrregularidades">
+          <img src="/public/assets/imagens/extratoIrregularidades.svg"
+              alt="Ilustração extrato Irregularidades"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Envio das informações e dados contábeis, orçamentários e fiscais</h3>
+            <p> Critério está classificado como Irregular</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="contabilidadeAposDecreto">
+          <img src="/public/assets/imagens/contabilidadeAposDecreto.svg"
+              alt="Ilustração contabilidade após Decreto"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Contabilidade após decreto</h3>
+            <p>Matriz de saldos contábeis - MSC</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="mscFaltaEnvio">
+          <img src="/public/assets/imagens/mscFaltaEnvio.svg"
+              alt="Ilustração msc Falta Envio"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>MSC - Falta de envio</h3>
+            <p>irregularidade apresentada junto ao critério de Envio das informações e dados contábeis, orçamentários e fiscais do RPPS</p>
+          </div>
+        </div>
+    
+
+      </div>
+    </div>
+  </section>
+
+  <!-- no fim do body -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <button class="modal-copy-btn" id="modalCopy">📋</button>
+    </div>
+  </div>
+    
+  <!-- Botão que abre o Chatbot -->
+  <div id="chatbot">
+    <img src="/public/assets/frames/01-neutral.svg" alt="Chatbot" id="chatbot-icon">
+  </div>
+
+  <!-- Janela de Chat -->
+  <div id="chat-window" class="chat-window hidden">
+    <div class="chat-header">Chat</div>
+    <div class="chat-body" id="chat-body">
+      <!-- mensagens serão inseridas aqui -->
+    </div>
+    <div class="chat-footer">
+      <input id="chat-input" type="text" placeholder="Digite sua mensagem…">
+      <button id="chat-send">
+        <img src="/public/assets/imagens/btn-send-question.svg" alt="Enviar">
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <!-- Sobre -->
+      <div class="footer__col">
+        <h3>ECAC</h3>
+        <p>Centro Virtual de Atendimento e Comunicação do DRPPS. Aqui você encontra todos os sistemas e serviços em um só lugar.</p>
+      </div>
+      <!-- Links Rápidos -->
+      <div class="footer__col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#">CADPREV</a></li>
+          <li><a href="#">GESCON</a></li>
+          <li><a href="#">COMPREV</a></li>
+          <li><a href="#">SIGA-RPPS</a></li>
+        </ul>
+      </div>
+      <!-- Contato -->
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <p>Email: <a href="mailto:atendimento.rpps@previdencia.gov.br">atendimento.rpps@previdencia.gov.br</a></p>
+        <p>Tel: (61) 2021-5555</p>
+      </div>
+      <!-- Redes Sociais -->
+      <div class="footer__col footer__social">
+        <h4>Siga-nos</h4>
+        <a href="#" aria-label="Facebook"><img src="/public/assets/icons/facebook.svg" alt=""></a>
+        <a href="#" aria-label="Twitter"><img src="/public/assets/icons/twitter.svg" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="/public/assets/icons/linkedin.svg" alt=""></a>
+        <a href="#" aria-label="instagram"><img src="/public/assets/icons/instagram.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <small>© 2025 DRPPS — Todos os direitos reservados.</small>
+    </div>
+  </footer>
+
+
+  <Script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.carousel-container')
+              .forEach(initCarousel);
+    });
+
+    function initCarousel(container) {
+      const track  = container.querySelector('.carousel-track');
+      const slides = Array.from(track.children);
+      const prev   = container.querySelector('.carousel-nav.prev');
+      const next   = container.querySelector('.carousel-nav.next');
+
+      // pega o gap do flexbox
+      const gap    = parseFloat(getComputedStyle(track).gap);
+      let index    = 0;
+      const slideW = slides[0].getBoundingClientRect().width;
+      const step   = slideW + gap;
+
+      function update() {
+        track.style.transform = `translateX(-${index * step}px)`;
+      }
+
+      next.addEventListener('click', () => {
+        index = (index + 1) % slides.length; update();
+      });
+      prev.addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length; update();
+      });
+
+      // autoplay
+      if (container.dataset.autoplay !== 'false') {
+        const interval = container.dataset.autoplayInterval || 4000;
+        setInterval(() => { next.click(); }, interval);
+      }
+    }
+
+  </Script>
+
+
+  <script src="/public/js/script.js"></script>
+  <script src="/public/js/chatbot.js"></script>
+</body>
+</html>

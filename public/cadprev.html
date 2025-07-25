@@ -28,7 +28,7 @@
             <a href="#" class="nav__link">Sistemas</a>
             <ul class="dropdown-menu">
               <li><a href="/public/cadprev.html">CADPREV</a></li>
-              <li><a href="#">GESCON</a></li>
+              <li><a href="/public/gescon.html">GESCON</a></li>
               <li><a href="#">SIGA-RPPS</a></li>
               <li><a href="#">COMPREV</a></li>
               <li><a href="#">SEI</a></li>
@@ -88,20 +88,209 @@
       </div>
 
       <!-- coluna da direita: slider 3D -->
-      <div class="slider3d-container">
-        <div class="carousel3d">
-          <div class="slide3d"><img src="/public/assets/imagens/slide1.svg" alt=""></div>
-          <div class="slide3d"><img src="/public/assets/imagens/slide2.svg" alt=""></div>
-          <div class="slide3d"><img src="/public/assets/imagens/slide3.svg" alt=""></div>
-          <div class="slide3d"><img src="/public/assets/imagens/slide4.svg" alt=""></div>
-          <div class="slide3d"><img src="/public/assets/imagens/slide5.svg" alt=""></div>
+        <div class="carousel-container" data-autoplay="true" data-autoplay-interval="4000">
+          <button class="carousel-nav prev" aria-label="Anterior">◀</button>
+          <div class="carousel-track-wrapper">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide1.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide2.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide3.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide4.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide5.svg"></div>
+              <div class="carousel-slide"><img src="/public/assets/imagens/slide6.svg"></div>
+            </div>
+          </div>
+          <button class="carousel-nav next" aria-label="Próximo">▶</button>
         </div>
-        <button class="nav prev"></button>
-        <button class="nav next"></button>
+    </div>
+  </section>
+
+  <section id="cadastro">
+    <div class="container">
+      <h2 class="section-title">Cadastro</h2>
+      <div class="grid-section">
+        <div class="grid-card" data-key="liberacao">
+          <img src="/public/assets/imagens/liberacao.svg"
+              alt="Ilustração Liberação de acesso"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Liberação de acesso</h3>
+            <p>Cadastre-se no portal CADPREV e envie o ofício de liberação</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="atribuicao">
+          <img src="/public/assets/imagens/atribuicao.svg"
+              alt="Ilustração Atribuição"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Atribuição de Responsabilidade</h3>
+            <p>Inclua, adicione e encerre funções de usuários no CADPREV</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="naoDesbloqueado">
+          <img src="/public/assets/imagens/naoDesbloqueado.svg"
+              alt="Ilustração Não Desbloqueado"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Não desbloqueado</h3>
+            <p>Passos para regularizar seu acesso: cadastro, ofício e vínculo de responsabilidades.</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="liberadoSemResponsabilidade">
+          <img src="/public/assets/imagens/liberadoSemResponsabilidade.svg"
+              alt="Ilustração Liberado sem Responsabilidade"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Sem responsabilidade</h3>
+            <p>Vincule o usuário a uma responsabilidade e comece a usar o CADPREV.</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="liberadoComSucesso">
+          <img src="/public/assets/imagens/liberadoComSucesso.svg"
+              alt="Ilustração Liberado com Sucesso"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Com sucesso</h3>
+            <p>Links e manuais essenciais após o desbloqueio.</p>
+          </div>
+        </div>
+
+        <div class="grid-card" data-key="webconferenciaGeral">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - Liberação de acesso</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <section id="repasse-parcelamento">
+    <div class="container">
+      <h2 class="section-title">Repasse/Parcelamento – DIPR</h2>
+      <div class="grid-section">
+        
+        <div class="grid-card" data-key="consultaDIPR">
+          <img src="/public/assets/imagens/consultaDIPR.svg"
+              alt="Ilustração consulta DIPR"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>DIPR Irregular</h3>
+            <p>Encaminhamento está classificado como Irregular</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="consistenciaCaraterContributivo">
+          <img src="/public/assets/imagens/consistenciaCaraterContributivo.svg"
+              alt="Ilustração consistência caráter contributivo"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Consistência e Caráter Contributivo</h3>
+            <p>DIPR Consistência e Caráter Contributivo está classificado como Irregular. </p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="regraInativaDipr">
+          <img src="/public/assets/imagens/regraInativaDipr.svg"
+              alt="Ilustração Regra inativa DIPR"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Regra de batimento com status inativa</h3>
+          </div>
+        </div>
+        <div class="grid-card" data-key="webconferenciaRP">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - DIPR, Regras de batimento, NAP</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="atuaria">
+    <div class="container">
+      <h2 class="section-title">Atuária</h2>
+      <div class="grid-section">
+
+        <div class="grid-card" data-key="equilibrioFinanceiroAtuarial">
+          <img src="/public/assets/imagens/equilibrioFinanceiroAtuarial.svg"
+              alt="Ilustração equilibrio Financeiro Atuarial"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Encaminhamento NTA, DRAA e resultados de análises</h3>
+            <p>Encaminhamento NTA, DRAA e resultados das análises está classificado como Irregular</p>
+          </div>
+        </div>
+        
+        <div class="grid-card" data-key="webconferenciaAtuaria">
+          <img src="/public/assets/imagens/webconferencia.svg"
+              alt="Ilustração Webconferência"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Webconferência - Análise de Notificações e orientações sobre o DRAA</h3>
+            <p>Solicite uma webconferência com um de nossos analistas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contabilidade">
+    <div class="container">
+      <h2 class="section-title">Contabilidade</h2>
+      <div class="grid-section">
+
+        <div class="grid-card" data-key="extratoIrregularidades">
+          <img src="/public/assets/imagens/extratoIrregularidades.svg"
+              alt="Ilustração extrato Irregularidades"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Envio das informações e dados contábeis, orçamentários e fiscais</h3>
+            <p> Critério está classificado como Irregular</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="contabilidadeAposDecreto">
+          <img src="/public/assets/imagens/contabilidadeAposDecreto.svg"
+              alt="Ilustração contabilidade após Decreto"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>Contabilidade após decreto</h3>
+            <p>Matriz de saldos contábeis - MSC</p>
+          </div>
+        </div>
+        <div class="grid-card" data-key="mscFaltaEnvio">
+          <img src="/public/assets/imagens/mscFaltaEnvio.svg"
+              alt="Ilustração msc Falta Envio"
+              class="grid-card__img">
+          <div class="grid-card__content">
+            <h3>MSC - Falta de envio</h3>
+            <p>irregularidade apresentada junto ao critério de Envio das informações e dados contábeis, orçamentários e fiscais do RPPS</p>
+          </div>
+        </div>
+    
+
+      </div>
+    </div>
+  </section>
+
+  <!-- no fim do body -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <button class="modal-copy-btn" id="modalCopy">📋</button>
+    </div>
+  </div>
     
   <!-- Botão que abre o Chatbot -->
   <div id="chatbot">
@@ -161,52 +350,45 @@
   </footer>
 
 
-
   <!-- Scripts -->
 
-  <script>
-    const carousel = document.querySelector('.carousel3d');
-    const slides   = document.querySelectorAll('.slide3d');
-    const total    = slides.length;
-    let angle = 0;
-    const angleIncrement = 360 / total;
-    let autoRotateInterval;
-
-    // Função que gira para o próximo slide
-    function rotateCarousel(delta) {
-      angle += delta * angleIncrement;
-      carousel.style.transform = `rotateY(${angle}deg)`;
-    }
-
-    // Avança manual
-    document.querySelector('.slider3d-container .next').addEventListener('click', () => {
-      rotateCarousel(-1);
-      resetAutoRotate();
+  <Script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.carousel-container')
+              .forEach(initCarousel);
     });
 
-    // Volta manual
-    document.querySelector('.slider3d-container .prev').addEventListener('click', () => {
-      rotateCarousel(+1);
-      resetAutoRotate();
-    });
+    function initCarousel(container) {
+      const track  = container.querySelector('.carousel-track');
+      const slides = Array.from(track.children);
+      const prev   = container.querySelector('.carousel-nav.prev');
+      const next   = container.querySelector('.carousel-nav.next');
 
-    // Auto-rotação
-    function startAutoRotate() {
-      autoRotateInterval = setInterval(() => {
-        rotateCarousel(-1);
-      }, 3000); // gira a cada 3 segundos (ajuste se quiser)
+      // pega o gap do flexbox
+      const gap    = parseFloat(getComputedStyle(track).gap);
+      let index    = 0;
+      const slideW = slides[0].getBoundingClientRect().width;
+      const step   = slideW + gap;
+
+      function update() {
+        track.style.transform = `translateX(-${index * step}px)`;
+      }
+
+      next.addEventListener('click', () => {
+        index = (index + 1) % slides.length; update();
+      });
+      prev.addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length; update();
+      });
+
+      // autoplay
+      if (container.dataset.autoplay !== 'false') {
+        const interval = container.dataset.autoplayInterval || 4000;
+        setInterval(() => { next.click(); }, interval);
+      }
     }
 
-    // Reinicia o timer de auto-rotação após clique manual
-    function resetAutoRotate() {
-      clearInterval(autoRotateInterval);
-      startAutoRotate();
-    }
-
-    // Inicia tudo
-    startAutoRotate();
-
-  </script>
+  </Script>
 
 
 

@@ -17,6 +17,9 @@ body {
   --overlay:   rgba(0,0,0,0.5);
   --gutter: 1rem;      /* seu espaçamento padrão */
   --max-width: 1800px; /* ou 1440px, conforme seu design */
+  --carousel-slide-w: 700px;     /* largura fixa de cada slide */
+  --carousel-slide-h: 700px;     /* altura fixa de cada slide */
+  --carousel-gap: 1rem;        /* gap lateral total entre slides */
 }
 
 /* ===== LAYOUT CONTAINERS ===== */
@@ -72,6 +75,7 @@ body {
 }
 .nav__toggle .hamburger::before { top: -8px; }
 .nav__toggle .hamburger::after  { top:  8px; }
+
 
 /* Nav List & Dropdown */
 .nav__menu {
@@ -150,6 +154,13 @@ body {
   align-self: end;
 }
 
+.hero__content > .carousel-container {
+  grid-column: 2;        /* força a 2ª coluna do grid */
+  margin-top: 2rem;      /* só espaçamento vertical */
+  justify-self: start;     /* alinha o carousel ao fim da célula */
+
+}
+
 /* 1) Grid de 2 colunas: texto à esquerda, slider à direita */
 .name-hero .hero__content {
   position: relative;
@@ -168,94 +179,6 @@ body {
 .name-hero .hero__text .hero__logo {
   margin-top: 189px;
   padding-right: 1px;
-}
-
-/* 2) Container do slider com perspectiva 3D */
-.slider3d-container {
-  position: relative;
-  width: 100%;
-  max-width: 500px; /* ajuste à largura desejada */
-  height: 450px;    /* ajuste à altura do seu card */
-  perspective: 2000px;
-  margin-top: 6rem;
-  margin-left: 65rem; /* empurra para direita */
-  overflow: visible;
-}
-
-/* 3) “Anel” 3D que vai girar */
-.carousel3d {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1s ease;
-}
-
-/* 4) Cada slide posicionado em volta do eixo Y */
-.slide3d {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 400px; /* largura do seu card */
-  height: 450px; /* altura do seu card */
-  margin: -225px 0 0 -200px;
-  backface-visibility: hidden;
-}
-.slide3d img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;      /* mantém todo o SVG visível */
-  object-position: center;  /* centraliza o SVG dentro do container */
-}
-
-
-/* 5) Distribui os slides num círculo: */
-.slider3d-container .slide3d:nth-child(1) { transform: rotateY(  0deg) translateZ(300px); }
-.slider3d-container .slide3d:nth-child(2) { transform: rotateY( 72deg) translateZ(300px); }
-.slider3d-container .slide3d:nth-child(3) { transform: rotateY(144deg) translateZ(300px); }
-.slider3d-container .slide3d:nth-child(4) { transform: rotateY(216deg) translateZ(300px); }
-.slider3d-container .slide3d:nth-child(5) { transform: rotateY(288deg) translateZ(300px); }
-
-/* 6) Botões de navegação */
-.slider3d-container .nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transform-origin: center center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 123, 255, 0.8);  /* cor do tema com transparência */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: background 1s ease, transform 0.3s ease;
-  color: #fff;                           /* cor da seta */
-  font-size: 1.25rem;                    /* tamanho do ícone */
-  line-height: 1;
-}
-.slider3d-container .prev { left: -1.4rem; }
-.slider3d-container .next { right: -1.2rem; }
-
-/* Ícones com pseudo-elementos */
-.slider3d-container .prev::before {
-  content: "◀";  /* seta para a esquerda */
-}
-.slider3d-container .next::before {
-  content: "▶";  /* seta para a direita */
-}
-
-/* Hover/ativo */
-.slider3d-container .nav:hover {
-
-  background: rgb(77, 158, 245);
-}
-
-/* Foco de acessibilidade */
-.slider3d-container .nav:focus {
-  outline-offset: 2px;
 }
 
 /* espaçamento e alinhamento da logo */
@@ -287,6 +210,51 @@ body {
 .hero-card:hover {
   transform: translateY(-4px);
 }
+
+
+/*==========CARROSSEL GENÉRICO============*/
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: var(--carousel-slide-w);
+  margin: 2rem auto;
+}
+
+.carousel-track-wrapper {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: var(--carousel-gap);
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 var(--carousel-slide-w);
+  height: var(--carousel-slide-h);
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5rem; height: 3.5rem;
+  border: none; border-radius: 50%;
+  background: rgba(0,123,255,0.5);
+  color: #fff; font-size: 1.25rem;
+  cursor: pointer; z-index: 10;
+}
+.carousel-nav.prev { left: .5rem; }
+.carousel-nav.next { right: .5rem; }
+
+
 
 /* ===== Seção Sistemas ===== */
 .sistemas-section {
@@ -715,6 +683,299 @@ body {
 .news-list .news-info time {
   font-size: .85rem;
   color: #666;
+}
+
+/* ===========================================
+       sessap página CADPREV
+   =========================================== */
+/* título da sessão */
+.section-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* grid que força sempre 3 colunas */
+.grid-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 0 var(--gutter);
+  margin-bottom: 2rem;
+}
+
+/* cada card: layout horizontal */
+.grid-card {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  height: 200px;
+}
+.grid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* imagem à esquerda (50% do width) */
+.grid-card__img {
+  flex: 0 0 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* conteúdo textual à direita */
+.grid-card__content {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.grid-card__content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #111;
+}
+.grid-card__content p {
+  margin: .5rem 0 0;
+  font-size: .95rem;
+  color: #555;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* opcional: fundo geral das sessões */
+#cadastro,
+#repasse-parcelamento,
+#atuaria,
+#contabilidade {
+  background: #f9f9f9;
+  padding: 1rem 0;
+}
+
+
+
+/* ===== MODAL DE CADASTRO ===== */
+
+/* overlay por trás do modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--overlay);
+  display: none;        /* inicia oculto */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* container do modal */
+.modal {
+  background: var(--light);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;     /* até 80% da altura da viewport */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative; /* necessário para posicionar o botão de copiar */
+}
+
+/* cabeçalho com título + botão fechar */
+.modal-header {
+  background: var(--primary);
+  color: var(--light);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.modal-close {
+  position: absolute;
+  background: transparent;
+  border: none;
+  font-size: 1.9rem;
+  color: var(--light);
+  cursor: pointer;
+  top: 0.8rem;
+  right: 0.5rem;
+  color: rgb(255, 255, 255);
+  transition: color 0.3s ease-in-out;
+
+}
+
+.modal-close:hover{
+  color: red;
+}
+
+/* corpo do modal rolável */
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  line-height: 1.5;
+  color: #333;
+  position: relative;
+}
+
+/* botão de copiar no canto superior direito do body */
+.modal-copy-btn {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+/* exibir o overlay + modal */
+.modal-overlay.active {
+  display: flex;
+}
+
+/* ----- TIPOGRAFIA NO MODAL ----- */
+.modal-body h3 {
+  font-size: 1.15rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.25rem;
+}
+
+.modal-body p {
+  margin: 0.75rem 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+.modal-body ol,
+.modal-body ul {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+
+
+.modal-body li {
+  margin-bottom: 0.5rem;
+  list-style: none;
+}
+
+.modal-body li strong {
+  color: #222;
+  
+}
+
+.modal-body a {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary);
+}
+
+.modal-body a:hover {
+  color: #0056b3;
+  border-bottom-style: solid;
+}
+
+.modal-body .modal-links {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.modal-body .modal-links li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.modal-body .modal-links li a {
+  font-weight: 500;
+}
+
+/* ao abrir o modal, adicionamos essa classe no <body> via JS */
+body.no-scroll {
+  overflow: hidden;      /* bloqueia rolagem de fundo */
+  touch-action: none;    /* opcional: bloqueia gestos em dispositivos móveis */
+}
+
+
+/* ===== Modern Accordion ===== */
+
+/* 1) Estilo do título */
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: black;
+  background: rgba(230, 231, 235, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.section-title:hover {
+  color: white;
+  background: rgba(24, 62, 255, 0.85);
+  transform: translateY(-2px);
+}
+
+/* 2) Indicador lateral */
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* 3) Ícone de seta */
+.section-title::after {
+  content: '⌄';
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+  color: var(--light);
+}
+
+/* 4) Container do conteúdo oculto */
+.grid-section {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem; /* só horizontal no estado fechado */
+}
+
+/* 5) Quando aberto */
+section.open .section-title::after {
+  transform: rotate(180deg);
+}
+section.open .grid-section {
+  padding: 1rem;
+  max-height: 2000px; /* suficiente para o conteúdo */
 }
 
 
